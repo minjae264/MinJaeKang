@@ -829,3 +829,69 @@ body {
     aspect-ratio: 3 / 4;
     min-height: 420px;
 }
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto;
+    }
+
+    .desktop {
+        width: 100%;
+        min-height: 100vh;
+        height: auto;
+        overflow: visible;
+        padding: 110px 20px 90px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 16px;
+        align-content: start;
+        justify-items: center;
+    }
+
+    .folder-item {
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        max-width: 140px;
+        padding: 8px;
+    }
+
+    .desktop-header {
+        top: 24px;
+        width: calc(100% - 40px);
+    }
+
+    .desktop-header h1 {
+        font-size: 15px;
+        letter-spacing: 2px;
+    }
+
+    .desktop-header p {
+        font-size: 12px;
+    }
+
+    .folder-icon {
+        width: 64px;
+        height: 64px;
+    }
+
+    .folder-label {
+        font-size: 12px;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    .taskbar {
+        padding: 0 12px;
+    }
+
+    .taskbar-title {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .taskbar-clock {
+        font-size: 13px;
+    }
+}
