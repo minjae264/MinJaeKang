@@ -37,7 +37,7 @@
 
     <div class="folder-item" data-folder="banner" style="left: 520px; top: 360px;">
       <img src="./img/folder.svg" class="folder-icon" alt="folder-icon">
-      <span class="folder-label">배너</span>
+      <span class="folder-label">배너, SNS</span>
     </div>
 
     <div class="folder-item" data-folder="mockup" style="left: 810px; top: 360px;">
@@ -104,7 +104,7 @@
           <div class="dot dot-min"></div>
           <div class="dot dot-max"></div>
         </div>
-        <span class="popup-folder-name">Mock-up</span>
+        <span class="popup-folder-name">제품디자인, 목업</span>
       </div>
 
       <div class="popup-path">~/Portfolio/Mock-up/</div>
@@ -653,30 +653,32 @@
 
       const items = popup.querySelectorAll('.file-item');
       const frame = document.getElementById(`${type}-preview-frame`);
-      const titleEl = document.getElementById(`${type}-preview-title`);
 
       items.forEach(item => {
         item.addEventListener('click', () => {
-          const title = item.querySelector('.file-name').textContent;
           const embedHtml = item.dataset.embed || '';
-
           if (!embedHtml || !frame) return;
 
           frame.innerHTML = embedHtml;
-          if (titleEl) titleEl.textContent = title;
 
           const all = popup.querySelectorAll('.file-item');
           all.forEach(el => el.classList.remove('active-preview'));
           item.classList.add('active-preview');
 
-          if (window.instgrm && window.instgrm.Embeds) {
-            window.instgrm.Embeds.process();
-          }
+          const runProcess = () => {
+            if (window.instgrm && window.instgrm.Embeds) {
+              window.instgrm.Embeds.process();
+            }
+          };
+
+          runProcess();
+          setTimeout(runProcess, 300);
         });
       });
 
       if (items.length) items[0].click();
     }
+
   </script>
   <script async src="//www.instagram.com/embed.js"></script>
 </body>
