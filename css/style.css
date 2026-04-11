@@ -895,3 +895,66 @@ body {
         font-size: 13px;
     }
 }
+@media (max-width: 768px) {
+    /* SNS, host도 모바일에서는 세로 배치 */
+    #popup-banner .preview-layout,
+    #popup-host .preview-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* 오른쪽 프리뷰 폭 고정 해제 */
+    #popup-banner .preview-panel,
+    #popup-host .preview-panel {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        justify-self: stretch;
+    }
+
+    /* SNS 썸네일 그리드 모바일용 */
+    #popup-banner .file-grid-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    /* host 썸네일 그리드 모바일용 */
+    #popup-host .file-grid-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    /* 프리뷰를 아래에서 확실히 보이게 */
+    #popup-banner .preview-stage,
+    #popup-host .preview-stage {
+        width: 100%;
+    }
+
+    /* SNS 프리뷰는 가운데 정렬 */
+    #popup-banner .preview-frame.banner-embed-frame {
+        width: min(100%, 320px);
+        margin: 0 auto;
+    }
+
+    /* host 프리뷰도 너무 커지지 않게 */
+    #popup-host .preview-frame {
+        width: min(100%, 360px);
+        min-height: 0;
+        margin: 0 auto;
+    }
+
+    /* 모바일에서 헤더/본문 여백 살짝 줄이기 */
+    .popup-body {
+        padding: 18px;
+    }
+
+    .popup-titlebar {
+        padding: 12px 16px;
+    }
+
+    .popup-path,
+    .popup-statusbar {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
