@@ -14,14 +14,12 @@
 <body>
   <div class="desktop" id="desktop">
 
-    <!-- 데스크탑 헤더 -->
     <div class="desktop-header">
       <h1>Portfolio</h1>
       <p>폴더를 열어 작업물을 확인하세요</p>
     </div>
     <canvas id="bubble-canvas"></canvas>
 
-    <!-- 폴더 목록 -->
     <div class="folder-item" data-folder="homepage" style="left: 260px; top: 360px;">
       <img src="./img/web.svg" class="folder-icon" alt="folder-icon">
       <span class="folder-label">웹디자인</span>
@@ -39,7 +37,7 @@
 
     <div class="folder-item" data-folder="banner" style="left: 520px; top: 360px;">
       <img src="./img/folder.svg" class="folder-icon" alt="folder-icon">
-      <span class="folder-label">배너</span>
+      <span class="folder-label">배너, SNS</span>
     </div>
 
     <div class="folder-item" data-folder="mockup" style="left: 810px; top: 360px;">
@@ -52,7 +50,6 @@
       <span class="folder-label">호스트</span>
     </div>
 
-    <!-- 작업표시줄 -->
     <div class="taskbar">
       <div class="taskbar-left">
         <div class="taskbar-dot" style="background:#508cff;width:8px;height:8px;border-radius:50%;"></div>
@@ -62,7 +59,6 @@
     </div>
   </div>
 
-  <!-- ── 오버레이 ── -->
   <div class="overlay" id="overlay" onclick="closeOnOverlay(event)">
 
     <!-- host -->
@@ -73,7 +69,6 @@
           <div class="dot dot-min"></div>
           <div class="dot dot-max"></div>
         </div>
-
         <span class="popup-folder-name">host</span>
       </div>
 
@@ -81,7 +76,6 @@
 
       <div class="popup-body">
         <div class="file-grid">
-
           <div class="file-item">
             <div class="file-thumb thumb-neutral">🌐</div>
             <div class="file-name">호스팅 페이지</div>
@@ -93,7 +87,6 @@
             <div class="file-name">서버 구성</div>
             <div class="file-meta">Config · 2026</div>
           </div>
-
         </div>
       </div>
 
@@ -102,54 +95,55 @@
         <span class="statusbar-size">12 MB</span>
       </div>
     </div>
+
     <!-- 목업 -->
-    <div class="popup-window folder-mockup" id="popup-mockup">
+    <div class="popup-window" id="popup-mockup" style="display:none;">
       <div class="popup-titlebar">
         <div class="titlebar-dots">
           <div class="dot dot-close" onclick="closeFolder()"></div>
           <div class="dot dot-min"></div>
           <div class="dot dot-max"></div>
         </div>
-        <span class="popup-folder-name">목업</span>
+        <span class="popup-folder-name">제품디자인, 목업</span>
       </div>
-      <div class="popup-path">~/Portfolio/목업/</div>
-      <div class="popup-body">
-        <div class="file-grid">
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🖥️</div>
-            <div class="file-name">쇼핑몰 앱 목업</div>
-            <div class="file-meta">Figma · 2024</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">📱</div>
-            <div class="file-name">모바일 대시보드</div>
-            <div class="file-meta">Figma · 2024</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">💻</div>
-            <div class="file-name">SaaS 랜딩페이지</div>
-            <div class="file-meta">Figma · 2024</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🎨</div>
-            <div class="file-name">브랜드 앱 UI</div>
-            <div class="file-meta">Figma · 2023</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">⌚</div>
-            <div class="file-name">웨어러블 UI</div>
-            <div class="file-meta">Sketch · 2023</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🗂️</div>
-            <div class="file-name">관리자 페이지</div>
-            <div class="file-meta">Figma · 2023</div>
+
+      <div class="popup-path">~/Portfolio/Mock-up/</div>
+
+      <div class="popup-body preview-layout">
+        <div class="file-list-panel">
+          <div class="file-grid file-grid-list">
+
+            <div class="file-item" data-preview='["./img/mockup1-1.jpg","./img/mockup1-2.jpg","./img/mockup1-3.jpg"]'>
+              <div class="file-thumb thumb-neutral">🏠</div>
+              <div class="file-name">브랜드 목업</div>
+              <div class="file-meta">Photoshop · 2026</div>
+            </div>
           </div>
         </div>
+
+        <div class="preview-panel">
+          <div class="preview-header">
+            <strong id="mockup-preview-title">미리보기를 선택하세요</strong>
+            <span id="mockup-preview-count"></span>
+          </div>
+
+          <div class="preview-stage">
+            <button class="preview-nav prev" type="button" onclick="changeSlide('mockup', -1)">‹</button>
+
+            <div class="preview-frame">
+              <img id="mockup-preview-image" src="" alt="preview image">
+            </div>
+
+            <button class="preview-nav next" type="button" onclick="changeSlide('mockup', 1)">›</button>
+          </div>
+
+          <div class="preview-dots" id="mockup-preview-dots"></div>
+        </div>
       </div>
+
       <div class="popup-statusbar">
-        <span class="statusbar-count">6개 항목</span>
-        <span class="statusbar-size">344 MB</span>
+        <span class="statusbar-count">2개 항목</span>
+        <span class="statusbar-size">이미지 3장</span>
       </div>
     </div>
 
@@ -161,38 +155,31 @@
           <div class="dot dot-min"></div>
           <div class="dot dot-max"></div>
         </div>
-        <span class="popup-folder-name">홈페이지</span>
+        <span class="popup-folder-name">클릭 시 해당 페이지로 이동</span>
       </div>
-      <div class="popup-path">~/Portfolio/홈페이지/</div>
+
+      <div class="popup-path">~/Portfolio/Webdesign/</div>
+
       <div class="popup-body">
         <div class="file-grid">
+
+          <a href="https://minjae264.github.io/TANGLES/" target="_blank" class="file-item link-item">
+            <div class="file-thumb thumb-image">
+              <img src="./img/tangles-thumb.png" alt="TANGLES 썸네일">
+            </div>
+            <div class="file-name">TANGLES_리빙소품 브랜드 디자인</div>
+            <div class="file-meta">HTML/CSS · 2026</div>
+          </a>
+
           <div class="file-item">
-            <div class="file-thumb thumb-neutral">🌐</div>
-            <div class="file-name">기업 공식 홈페이지</div>
-            <div class="file-meta">HTML/CSS · 2024</div>
+            <div class="file-thumb thumb-neutral">🍗🍺😋</div>
+            <div class="file-name">노랑통닭_더블랙</div>
+            <div class="file-meta">HTML/CSS · 2026</div>
           </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🏪</div>
-            <div class="file-name">소상공인 웹사이트</div>
-            <div class="file-meta">WordPress · 2024</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🎓</div>
-            <div class="file-name">교육기관 홈페이지</div>
-            <div class="file-meta">React · 2024</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🍽️</div>
-            <div class="file-name">레스토랑 홈페이지</div>
-            <div class="file-meta">Webflow · 2023</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🏥</div>
-            <div class="file-name">병원 홈페이지</div>
-            <div class="file-meta">HTML/CSS · 2023</div>
-          </div>
+
         </div>
       </div>
+
       <div class="popup-statusbar">
         <span class="statusbar-count">5개 항목</span>
         <span class="statusbar-size">128 MB</span>
@@ -209,10 +196,13 @@
         </div>
         <span class="popup-folder-name">카드뉴스, 상세페이지</span>
       </div>
-      <div class="popup-path">~/Portfolio/cardnews,detailpage/</div>
+
+      <div class="popup-path">~/Portfolio/Cardnews, Detailpage/</div>
+
       <div class="popup-body preview-layout">
         <div class="file-list-panel">
           <div class="file-grid file-grid-list">
+
             <div class="file-item" data-preview='["./img/cardnews1-1.jpg"]'>
               <div class="file-thumb thumb-neutral">📑</div>
               <div class="file-name">상세페이지1</div>
@@ -236,6 +226,7 @@
               <div class="file-name">카드뉴스2</div>
               <div class="file-meta">Photoshop · 2026</div>
             </div>
+
           </div>
         </div>
 
@@ -247,6 +238,7 @@
 
           <div class="preview-stage">
             <button class="preview-nav prev" type="button" onclick="changeSlide('cardnews', -1)">‹</button>
+
             <div class="preview-frame">
               <img id="cardnews-preview-image" src="" alt="preview image">
             </div>
@@ -257,6 +249,7 @@
           <div class="preview-dots" id="cardnews-preview-dots"></div>
         </div>
       </div>
+
       <div class="popup-statusbar">
         <span class="statusbar-count">7개 항목</span>
         <span class="statusbar-size">210 MB</span>
@@ -264,48 +257,54 @@
     </div>
 
     <!-- 배너 -->
-    <div class="popup-window folder-banner" id="popup-banner" style="display:none;">
+    <div class="popup-window" id="popup-banner" style="display:none;">
       <div class="popup-titlebar">
         <div class="titlebar-dots">
           <div class="dot dot-close" onclick="closeFolder()"></div>
           <div class="dot dot-min"></div>
           <div class="dot dot-max"></div>
         </div>
-        <span class="popup-folder-name">배너</span>
+        <span class="popup-folder-name">배너, SNS</span>
       </div>
-      <div class="popup-path">~/Portfolio/배너/</div>
-      <div class="popup-body">
-        <div class="file-grid">
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🎪</div>
-            <div class="file-name">신제품 런칭 배너</div>
-            <div class="file-meta">Photoshop · 2024</div>
+
+      <div class="popup-path">~/Portfolio/Banner, SNS/</div>
+
+      <div class="popup-body preview-layout">
+        <div class="file-list-panel">
+          <div class="file-grid file-grid-list">
+
+            <div class="file-item" data-embed='&lt;blockquote class="instagram-media"
+  data-instgrm-permalink="https://www.instagram.com/reel/DDCJnwEJEif/"
+  data-instgrm-version="14"&gt;&lt;/blockquote&gt;'>
+
+              <div class="insta-thumb">
+                <img src="./img/reel-thumb1.png" alt="reel-thumb">
+              </div>
+
+            </div>
+            <div class="file-item" data-embed='&lt;blockquote class="instagram-media"
+  data-instgrm-permalink="https://www.instagram.com/p/DWLuZLQkkTQ"
+  data-instgrm-version="14"&gt;&lt;/blockquote&gt;'>
+
+              <div class="insta-thumb">
+                <img src="./img/post-thumb1.png" alt="post-thumb">
+              </div>
+
+            </div>
+
           </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🛍️</div>
-            <div class="file-name">시즌 세일 배너</div>
-            <div class="file-meta">Illustrator · 2024</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">📲</div>
-            <div class="file-name">SNS 광고 배너</div>
-            <div class="file-meta">Figma · 2024</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🎉</div>
-            <div class="file-name">이벤트 팝업 배너</div>
-            <div class="file-meta">Photoshop · 2024</div>
-          </div>
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🖼️</div>
-            <div class="file-name">웹 메인 배너</div>
-            <div class="file-meta">Illustrator · 2023</div>
+        </div>
+
+        <div class="preview-panel">
+          <div class="preview-stage">
+            <div class="preview-frame banner-embed-frame" id="banner-preview-frame"></div>
           </div>
         </div>
       </div>
+
       <div class="popup-statusbar">
-        <span class="statusbar-count">6개 항목</span>
-        <span class="statusbar-size">487 MB</span>
+        <span class="statusbar-count">2개 항목</span>
+        <span class="statusbar-size">Instagram Embed</span>
       </div>
     </div>
 
@@ -320,40 +319,48 @@
         <span class="popup-folder-name">동영상, 모션</span>
       </div>
 
-      <div class="popup-path">~/Portfolio/movie,motion/</div>
+      <div class="popup-path">~/Portfolio/Movie, Motion/</div>
 
       <div class="popup-body preview-layout">
-
-        <!-- 왼쪽 리스트 -->
         <div class="file-list-panel">
           <div class="file-grid file-grid-list">
 
-            <div class="file-item" data-preview='["./video/video1.mp4"]'>
+            <div class="file-item" data-preview='["./video/video1-1.mp4"]'>
               <div class="file-thumb thumb-neutral">🎬</div>
               <div class="file-name">광고캠페인1</div>
               <div class="file-meta">Premiere · 2026</div>
             </div>
 
-            <div class="file-item" data-preview='["./video/video2.mp4"]'>
+            <div class="file-item" data-preview='["./video/video2-1.mp4"]'>
               <div class="file-thumb thumb-neutral">🎬</div>
-              <div class="file-name">애니메이션1</div>
-              <div class="file-meta">Jitter&nbsp; · 2026</div>
+              <div class="file-name">애니메이션1
+                <br><span class="ref">(사운드포함)</span>
+              </div>
+              <div class="file-meta">&nbsp;Jitter · 2026</div>
+            </div>
+            <div class="file-item" data-preview='["./video/video2-2.mp4"]'>
+              <div class="file-thumb thumb-neutral">🎬</div>
+              <div class="file-name">애니메이션2
+                <br><span class="ref">(사운드포함)</span>
+              </div>
+              <div class="file-meta">&nbsp;Jitter · 2026</div>
+            </div>
+            <div class="file-item" data-preview='["./video/video2-3.mp4"]'>
+              <div class="file-thumb thumb-neutral">🎬</div>
+              <div class="file-name">애니메이션3
+                <br><span class="ref">(사운드포함)</span>
+              </div>
+              <div class="file-meta">&nbsp;Jitter · 2026</div>
             </div>
 
           </div>
         </div>
 
-        <!-- 오른쪽 프리뷰 -->
         <div class="preview-panel">
-          <div class="preview-header">
-            <strong id="detail-preview-title">미리보기를 선택하세요</strong>
-          </div>
-
           <div class="preview-stage">
             <div class="preview-frame" id="detail-preview-frame"></div>
           </div>
         </div>
-
       </div>
 
       <div class="popup-statusbar">
@@ -363,19 +370,17 @@
     </div>
 
   </div>
+
   <script>
     const desktop = document.getElementById('desktop');
 
-    /* 버블 생성 */
     for (let i = 0; i < 10; i++) {
       const el = document.createElement('div');
       el.className = 'sparkle';
 
       const size = Math.random() * 20 + 16;
-
       el.style.setProperty('--size', size + 'px');
       el.style.setProperty('--t', (Math.random() * 3 + 4) + 's');
-
       el.style.left = Math.random() * 60 + 20 + '%';
       el.style.top = Math.random() * 40 + 50 + '%';
       el.style.animationDelay = Math.random() * 5 + 's';
@@ -383,7 +388,6 @@
       desktop.appendChild(el);
     }
 
-    /* 시계 */
     function updateClock() {
       const now = new Date();
       const h = String(now.getHours()).padStart(2, '0');
@@ -393,7 +397,6 @@
     updateClock();
     setInterval(updateClock, 10000);
 
-    /* 폴더 열기/닫기 */
     const folderKeys = ['mockup', 'homepage', 'cardnews', 'banner', 'detail', 'host'];
     let currentOpen = null;
 
@@ -401,7 +404,7 @@
       const overlay = document.getElementById('overlay');
       folderKeys.forEach(k => {
         const el = document.getElementById('popup-' + k);
-        el.style.display = (k === name) ? 'flex' : 'none';
+        if (el) el.style.display = (k === name) ? 'flex' : 'none';
       });
       overlay.classList.add('open');
       currentOpen = name;
@@ -420,10 +423,9 @@
       if (e.key === 'Escape') closeFolder();
     });
 
-    /* 폴더 드래그 + 클릭 구분 */
     const folderItems = document.querySelectorAll('.folder-item');
 
-    folderItems.forEach((item, index) => {
+    folderItems.forEach((item) => {
       const folderName = item.dataset.folder;
       const savedPos = localStorage.getItem('folder-pos-' + folderName);
 
@@ -508,24 +510,27 @@
 
       item.ondragstart = () => false;
     });
+
     const previewState = {
       cardnews: {
         images: [],
         index: 0
       },
-      detail: {
+      mockup: {
         images: [],
         index: 0
       }
     };
 
     function setPreview(type, title, images, clickedItem) {
-      if (!images || !images.length) return;
+      if (!images || !images.length || !previewState[type]) return;
 
       previewState[type].images = images;
       previewState[type].index = 0;
 
-      document.getElementById(`${type}-preview-title`).textContent = title;
+      const titleEl = document.getElementById(`${type}-preview-title`);
+      if (titleEl) titleEl.textContent = title;
+
       renderPreview(type);
 
       const container = document.getElementById(`popup-${type}`);
@@ -539,9 +544,13 @@
 
     function renderPreview(type) {
       const state = previewState[type];
+      if (!state) return;
+
       const imageEl = document.getElementById(`${type}-preview-image`);
       const countEl = document.getElementById(`${type}-preview-count`);
       const dotsEl = document.getElementById(`${type}-preview-dots`);
+
+      if (!imageEl || !countEl || !dotsEl) return;
 
       if (!state.images.length) {
         imageEl.src = '';
@@ -568,7 +577,7 @@
 
     function changeSlide(type, direction) {
       const state = previewState[type];
-      if (!state.images.length) return;
+      if (!state || !state.images.length) return;
 
       state.index += direction;
 
@@ -580,7 +589,7 @@
 
     function bindPreviewItems(type) {
       const popup = document.getElementById(`popup-${type}`);
-      if (!popup) return;
+      if (!popup || !previewState[type]) return;
 
       const items = popup.querySelectorAll('.file-item');
 
@@ -600,8 +609,6 @@
       }
     }
 
-    bindPreviewItems('cardnews');
-    bindVideoPreview('detail');
     function bindVideoPreview(type) {
       const popup = document.getElementById(`popup-${type}`);
       if (!popup) return;
@@ -615,11 +622,11 @@
           const title = item.querySelector('.file-name').textContent;
           const videos = JSON.parse(item.dataset.preview || '[]');
 
-          if (!videos.length) return;
+          if (!videos.length || !frame) return;
 
-          frame.innerHTML = "";
+          frame.innerHTML = '';
 
-          const video = document.createElement("video");
+          const video = document.createElement('video');
           video.src = videos[0];
           video.autoplay = true;
           video.loop = true;
@@ -627,24 +634,62 @@
           video.controls = true;
           video.playsInline = true;
 
-          video.style.width = "100%";
-          video.style.height = "100%";
-          video.style.objectFit = "contain";
+          video.style.width = '100%';
+          video.style.height = '100%';
+          video.style.objectFit = 'contain';
 
           frame.appendChild(video);
-          titleEl.textContent = title;
+          if (titleEl) titleEl.textContent = title;
 
-          // active 표시
           const all = popup.querySelectorAll('.file-item');
           all.forEach(el => el.classList.remove('active-preview'));
           item.classList.add('active-preview');
         });
       });
 
-      // 첫 번째 자동 실행
       if (items.length) items[0].click();
     }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      bindPreviewItems('cardnews');
+      bindPreviewItems('mockup');
+      bindVideoPreview('detail');
+      bindInstagramPreview('banner');
+    });
+    function bindInstagramPreview(type) {
+      const popup = document.getElementById(`popup-${type}`);
+      if (!popup) return;
+
+      const items = popup.querySelectorAll('.file-item');
+      const frame = document.getElementById(`${type}-preview-frame`);
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          const embedHtml = item.dataset.embed || '';
+          if (!embedHtml || !frame) return;
+
+          frame.innerHTML = embedHtml;
+
+          const all = popup.querySelectorAll('.file-item');
+          all.forEach(el => el.classList.remove('active-preview'));
+          item.classList.add('active-preview');
+
+          const runProcess = () => {
+            if (window.instgrm && window.instgrm.Embeds) {
+              window.instgrm.Embeds.process();
+            }
+          };
+
+          runProcess();
+          setTimeout(runProcess, 300);
+        });
+      });
+
+      if (items.length) items[0].click();
+    }
+
   </script>
+  <script async src="//www.instagram.com/embed.js"></script>
 </body>
 
 </html>
