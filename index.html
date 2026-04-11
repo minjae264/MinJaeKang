@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <div class="desktop" id="desktop">
+
+    <div class="desktop-header">
+      <h1>Portfolio</h1>
+      <p>폴더를 열어 작업물을 확인하세요</p>
+    </div>
+    <canvas id="bubble-canvas"></canvas>
+
+    <div class="folder-item" data-folder="homepage" style="left: 260px; top: 360px;">
+      <img src="./img/web.svg" class="folder-icon" alt="folder-icon">
+      <span class="folder-label">웹디자인</span>
+    </div>
+
+    <div class="folder-item" data-folder="cardnews" style="left: 390px; top: 360px;">
+      <img src="./img/cardnews.svg" class="folder-icon" alt="folder-icon">
+      <span class="folder-label">카드뉴스, 상세페이지</span>
+    </div>
+
+    <div class="folder-item" data-folder="detail" style="left: 650px; top: 360px;">
+      <img src="./img/movie.svg" class="folder-icon" alt="folder-icon">
+      <span class="folder-label">동영상, 모션</span>
+    </div>
+
+    <div class="folder-item" data-folder="banner" style="left: 520px; top: 360px;">
+      <img src="./img/folder.svg" class="folder-icon" alt="folder-icon">
+      <span class="folder-label">배너</span>
+    </div>
+
+    <div class="folder-item" data-folder="mockup" style="left: 810px; top: 360px;">
+      <img src="./img/design.svg" class="folder-icon" alt="folder-icon">
+      <span class="folder-label">제품디자인, 목업</span>
+    </div>
+
+    <div class="folder-item" data-folder="host" style="left: 950px; top: 360px;">
+      <img src="./img/user.svg" class="folder-icon" alt="folder-icon">
+      <span class="folder-label">호스트</span>
+    </div>
+
+    <div class="taskbar">
+      <div class="taskbar-left">
+        <div class="taskbar-dot" style="background:#508cff;width:8px;height:8px;border-radius:50%;"></div>
+        <span class="taskbar-title">Kang Min Jae's Portfolio</span>
+      </div>
+      <div class="taskbar-clock" id="clock">--:--</div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="closeOnOverlay(event)">
+
+    <!-- host -->
+    <div class="popup-window" id="popup-host" style="display:none;">
+      <div class="popup-titlebar">
+        <div class="titlebar-dots">
+          <div class="dot dot-close" onclick="closeFolder()"></div>
+          <div class="dot dot-min"></div>
+          <div class="dot dot-max"></div>
+        </div>
+        <span class="popup-folder-name">host</span>
+      </div>
+
+      <div class="popup-path">~/Portfolio/host/</div>
+
+      <div class="popup-body">
+        <div class="file-grid">
+          <div class="file-item">
+            <div class="file-thumb thumb-neutral">🌐</div>
+            <div class="file-name">호스팅 페이지</div>
+            <div class="file-meta">HTML · 2026</div>
+          </div>
+
+          <div class="file-item">
+            <div class="file-thumb thumb-neutral">🖥️</div>
+            <div class="file-name">서버 구성</div>
+            <div class="file-meta">Config · 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup-statusbar">
+        <span class="statusbar-count">2개 항목</span>
+        <span class="statusbar-size">12 MB</span>
+      </div>
+    </div>
+
+    <!-- 목업 -->
+    <div class="popup-window" id="popup-mockup" style="display:none;">
+      <div class="popup-titlebar">
+        <div class="titlebar-dots">
+          <div class="dot dot-close" onclick="closeFolder()"></div>
+          <div class="dot dot-min"></div>
+          <div class="dot dot-max"></div>
+        </div>
+        <span class="popup-folder-name">Mock-up</span>
+      </div>
+
+      <div class="popup-path">~/Portfolio/Mock-up/</div>
+
+      <div class="popup-body preview-layout">
+        <div class="file-list-panel">
+          <div class="file-grid file-grid-list">
+
+            <div class="file-item" data-preview='["./img/mockup1-1.jpg","./img/mockup1-2.jpg","./img/mockup1-3.jpg"]'>
+              <div class="file-thumb thumb-neutral">🏠</div>
+              <div class="file-name">브랜드 목업</div>
+              <div class="file-meta">Photoshop · 2026</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-panel">
+          <div class="preview-header">
+            <strong id="mockup-preview-title">미리보기를 선택하세요</strong>
+            <span id="mockup-preview-count"></span>
+          </div>
+
+          <div class="preview-stage">
+            <button class="preview-nav prev" type="button" onclick="changeSlide('mockup', -1)">‹</button>
+
+            <div class="preview-frame">
+              <img id="mockup-preview-image" src="" alt="preview image">
+            </div>
+
+            <button class="preview-nav next" type="button" onclick="changeSlide('mockup', 1)">›</button>
+          </div>
+
+          <div class="preview-dots" id="mockup-preview-dots"></div>
+        </div>
+      </div>
+
+      <div class="popup-statusbar">
+        <span class="statusbar-count">2개 항목</span>
+        <span class="statusbar-size">이미지 3장</span>
+      </div>
+    </div>
+
+    <!-- 홈페이지 -->
+    <div class="popup-window folder-homepage" id="popup-homepage" style="display:none;">
+      <div class="popup-titlebar">
+        <div class="titlebar-dots">
+          <div class="dot dot-close" onclick="closeFolder()"></div>
+          <div class="dot dot-min"></div>
+          <div class="dot dot-max"></div>
+        </div>
+        <span class="popup-folder-name">클릭 시 해당 페이지로 이동</span>
+      </div>
+
+      <div class="popup-path">~/Portfolio/Webdesign/</div>
+
+      <div class="popup-body">
+        <div class="file-grid">
+
+          <a href="https://minjae264.github.io/TANGLES/" target="_blank" class="file-item link-item">
+            <div class="file-thumb thumb-image">
+              <img src="./img/tangles-thumb.png" alt="TANGLES 썸네일">
+            </div>
+            <div class="file-name">TANGLES_리빙소품 브랜드 디자인</div>
+            <div class="file-meta">HTML/CSS · 2026</div>
+          </a>
+
+          <div class="file-item">
+            <div class="file-thumb thumb-neutral">🍗🍺😋</div>
+            <div class="file-name">노랑통닭_더블랙</div>
+            <div class="file-meta">HTML/CSS · 2026</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="popup-statusbar">
+        <span class="statusbar-count">5개 항목</span>
+        <span class="statusbar-size">128 MB</span>
+      </div>
+    </div>
+
+    <!-- 카드뉴스 -->
+    <div class="popup-window folder-cardnews" id="popup-cardnews" style="display:none;">
+      <div class="popup-titlebar">
+        <div class="titlebar-dots">
+          <div class="dot dot-close" onclick="closeFolder()"></div>
+          <div class="dot dot-min"></div>
+          <div class="dot dot-max"></div>
+        </div>
+        <span class="popup-folder-name">카드뉴스, 상세페이지</span>
+      </div>
+
+      <div class="popup-path">~/Portfolio/Cardnews, Detailpage/</div>
+
+      <div class="popup-body preview-layout">
+        <div class="file-list-panel">
+          <div class="file-grid file-grid-list">
+
+            <div class="file-item" data-preview='["./img/cardnews1-1.jpg"]'>
+              <div class="file-thumb thumb-neutral">📑</div>
+              <div class="file-name">상세페이지1</div>
+              <div class="file-meta">Photoshop · 2026</div>
+            </div>
+
+            <div class="file-item" data-preview='["./img/cardnews2-1.jpg"]'>
+              <div class="file-thumb thumb-neutral">📑</div>
+              <div class="file-name">상세페이지2</div>
+              <div class="file-meta">Photoshop · 2026</div>
+            </div>
+
+            <div class="file-item" data-preview='["./img/cardnews3-1.jpg"]'>
+              <div class="file-thumb thumb-neutral">💌</div>
+              <div class="file-name">카드뉴스1</div>
+              <div class="file-meta">Photoshop · 2026</div>
+            </div>
+
+            <div class="file-item" data-preview='["./img/cardnews4-1.jpg"]'>
+              <div class="file-thumb thumb-neutral">💌</div>
+              <div class="file-name">카드뉴스2</div>
+              <div class="file-meta">Photoshop · 2026</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="preview-panel">
+          <div class="preview-header">
+            <strong id="cardnews-preview-title">미리보기를 선택하세요</strong>
+            <span id="cardnews-preview-count">1 / 4</span>
+          </div>
+
+          <div class="preview-stage">
+            <button class="preview-nav prev" type="button" onclick="changeSlide('cardnews', -1)">‹</button>
+
+            <div class="preview-frame">
+              <img id="cardnews-preview-image" src="" alt="preview image">
+            </div>
+
+            <button class="preview-nav next" type="button" onclick="changeSlide('cardnews', 1)">›</button>
+          </div>
+
+          <div class="preview-dots" id="cardnews-preview-dots"></div>
+        </div>
+      </div>
+
+      <div class="popup-statusbar">
+        <span class="statusbar-count">7개 항목</span>
+        <span class="statusbar-size">210 MB</span>
+      </div>
+    </div>
+
+    <!-- 배너 -->
+    <div class="popup-window" id="popup-banner" style="display:none;">
+      <div class="popup-titlebar">
+        <div class="titlebar-dots">
+          <div class="dot dot-close" onclick="closeFolder()"></div>
+          <div class="dot dot-min"></div>
+          <div class="dot dot-max"></div>
+        </div>
+        <span class="popup-folder-name">배너</span>
+      </div>
+
+      <div class="popup-path">~/Portfolio/banner/</div>
+
+      <div class="popup-body preview-layout">
+        <div class="file-list-panel">
+          <div class="file-grid file-grid-list">
+
+            <div class="file-item"
+              data-embed='&lt;blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DDCJnwEJEif/" data-instgrm-version="14"&gt;&lt;/blockquote&gt;'>
+              <div class="file-thumb thumb-neutral">📱</div>
+              <div class="file-name">릴스1</div>
+              <div class="file-meta">Instagram Reel</div>
+            </div>
+
+            <div class="file-item"
+              data-embed='&lt;blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/POST_ID_2/" data-instgrm-version="14"&gt;&lt;/blockquote&gt;'>
+              <div class="file-thumb thumb-neutral">📱</div>
+              <div class="file-name">인스타 배너 2</div>
+              <div class="file-meta">Instagram Reel</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="preview-panel">
+          <div class="preview-header">
+            <strong id="banner-preview-title">미리보기를 선택하세요</strong>
+          </div>
+
+          <div class="preview-stage">
+            <div class="preview-frame banner-embed-frame" id="banner-preview-frame"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup-statusbar">
+        <span class="statusbar-count">2개 항목</span>
+        <span class="statusbar-size">Instagram Embed</span>
+      </div>
+    </div>
+
+    <!-- 동영상, 모션 -->
+    <div class="popup-window folder-detail" id="popup-detail" style="display:none;">
+      <div class="popup-titlebar">
+        <div class="titlebar-dots">
+          <div class="dot dot-close" onclick="closeFolder()"></div>
+          <div class="dot dot-min"></div>
+          <div class="dot dot-max"></div>
+        </div>
+        <span class="popup-folder-name">동영상, 모션</span>
+      </div>
+
+      <div class="popup-path">~/Portfolio/Movie, Motion/</div>
+
+      <div class="popup-body preview-layout">
+        <div class="file-list-panel">
+          <div class="file-grid file-grid-list">
+
+            <div class="file-item" data-preview='["./video/video1-1.mp4"]'>
+              <div class="file-thumb thumb-neutral">🎬</div>
+              <div class="file-name">광고캠페인1</div>
+              <div class="file-meta">Premiere · 2026</div>
+            </div>
+
+            <div class="file-item" data-preview='["./video/video2.mp4"]'>
+              <div class="file-thumb thumb-neutral">🎬</div>
+              <div class="file-name">애니메이션1
+                <br><span class="ref">(사운드포함)</span>
+              </div>
+              <div class="file-meta">&nbsp;Jitter · 2026</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="preview-panel">
+          <div class="preview-header">
+            <strong id="detail-preview-title">미리보기를 선택하세요</strong>
+          </div>
+
+          <div class="preview-stage">
+            <div class="preview-frame" id="detail-preview-frame"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup-statusbar">
+        <span class="statusbar-count">2개 항목</span>
+        <span class="statusbar-size">영상</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const desktop = document.getElementById('desktop');
+
+    for (let i = 0; i < 10; i++) {
+      const el = document.createElement('div');
+      el.className = 'sparkle';
+
+      const size = Math.random() * 20 + 16;
+      el.style.setProperty('--size', size + 'px');
+      el.style.setProperty('--t', (Math.random() * 3 + 4) + 's');
+      el.style.left = Math.random() * 60 + 20 + '%';
+      el.style.top = Math.random() * 40 + 50 + '%';
+      el.style.animationDelay = Math.random() * 5 + 's';
+
+      desktop.appendChild(el);
+    }
+
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('clock').textContent = `${h}:${m}`;
+    }
+    updateClock();
+    setInterval(updateClock, 10000);
+
+    const folderKeys = ['mockup', 'homepage', 'cardnews', 'banner', 'detail', 'host'];
+    let currentOpen = null;
+
+    function openFolder(name) {
+      const overlay = document.getElementById('overlay');
+      folderKeys.forEach(k => {
+        const el = document.getElementById('popup-' + k);
+        if (el) el.style.display = (k === name) ? 'flex' : 'none';
+      });
+      overlay.classList.add('open');
+      currentOpen = name;
+    }
+
+    function closeFolder() {
+      document.getElementById('overlay').classList.remove('open');
+      currentOpen = null;
+    }
+
+    function closeOnOverlay(e) {
+      if (e.target === document.getElementById('overlay')) closeFolder();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeFolder();
+    });
+
+    const folderItems = document.querySelectorAll('.folder-item');
+
+    folderItems.forEach((item) => {
+      const folderName = item.dataset.folder;
+      const savedPos = localStorage.getItem('folder-pos-' + folderName);
+
+      if (savedPos) {
+        const pos = JSON.parse(savedPos);
+        item.style.left = pos.left + 'px';
+        item.style.top = pos.top + 'px';
+      }
+
+      let isDragging = false;
+      let moved = false;
+      let startX = 0;
+      let startY = 0;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      item.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+
+        const rect = item.getBoundingClientRect();
+        const desktopRect = desktop.getBoundingClientRect();
+
+        startX = e.clientX;
+        startY = e.clientY;
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+        moved = false;
+        isDragging = true;
+
+        item.classList.add('dragging');
+
+        function onMouseMove(e) {
+          if (!isDragging) return;
+
+          const dx = e.clientX - startX;
+          const dy = e.clientY - startY;
+
+          if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+            moved = true;
+          }
+
+          if (!moved) return;
+
+          let left = e.clientX - desktopRect.left - offsetX;
+          let top = e.clientY - desktopRect.top - offsetY;
+
+          const maxLeft = desktop.clientWidth - item.offsetWidth;
+          const maxTop = desktop.clientHeight - item.offsetHeight - 48;
+
+          left = Math.max(0, Math.min(left, maxLeft));
+          top = Math.max(0, Math.min(top, maxTop));
+
+          item.style.left = left + 'px';
+          item.style.top = top + 'px';
+        }
+
+        function onMouseUp() {
+          if (!isDragging) return;
+
+          isDragging = false;
+          item.classList.remove('dragging');
+
+          if (moved) {
+            localStorage.setItem(
+              'folder-pos-' + folderName,
+              JSON.stringify({
+                left: parseInt(item.style.left, 10),
+                top: parseInt(item.style.top, 10)
+              })
+            );
+          } else {
+            openFolder(folderName);
+          }
+
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
+
+      item.ondragstart = () => false;
+    });
+
+    const previewState = {
+      cardnews: {
+        images: [],
+        index: 0
+      },
+      mockup: {
+        images: [],
+        index: 0
+      }
+    };
+
+    function setPreview(type, title, images, clickedItem) {
+      if (!images || !images.length || !previewState[type]) return;
+
+      previewState[type].images = images;
+      previewState[type].index = 0;
+
+      const titleEl = document.getElementById(`${type}-preview-title`);
+      if (titleEl) titleEl.textContent = title;
+
+      renderPreview(type);
+
+      const container = document.getElementById(`popup-${type}`);
+      const items = container.querySelectorAll('.file-item');
+      items.forEach(item => item.classList.remove('active-preview'));
+
+      if (clickedItem) {
+        clickedItem.classList.add('active-preview');
+      }
+    }
+
+    function renderPreview(type) {
+      const state = previewState[type];
+      if (!state) return;
+
+      const imageEl = document.getElementById(`${type}-preview-image`);
+      const countEl = document.getElementById(`${type}-preview-count`);
+      const dotsEl = document.getElementById(`${type}-preview-dots`);
+
+      if (!imageEl || !countEl || !dotsEl) return;
+
+      if (!state.images.length) {
+        imageEl.src = '';
+        countEl.textContent = '0 / 0';
+        dotsEl.innerHTML = '';
+        return;
+      }
+
+      imageEl.src = state.images[state.index];
+      countEl.textContent = `${state.index + 1} / ${state.images.length}`;
+
+      dotsEl.innerHTML = '';
+      state.images.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'preview-dot' + (i === state.index ? ' active' : '');
+        dot.type = 'button';
+        dot.onclick = () => {
+          state.index = i;
+          renderPreview(type);
+        };
+        dotsEl.appendChild(dot);
+      });
+    }
+
+    function changeSlide(type, direction) {
+      const state = previewState[type];
+      if (!state || !state.images.length) return;
+
+      state.index += direction;
+
+      if (state.index < 0) state.index = state.images.length - 1;
+      if (state.index >= state.images.length) state.index = 0;
+
+      renderPreview(type);
+    }
+
+    function bindPreviewItems(type) {
+      const popup = document.getElementById(`popup-${type}`);
+      if (!popup || !previewState[type]) return;
+
+      const items = popup.querySelectorAll('.file-item');
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          const title = item.querySelector('.file-name').textContent;
+          const images = JSON.parse(item.dataset.preview || '[]');
+          setPreview(type, title, images, item);
+        });
+      });
+
+      if (items.length) {
+        const firstItem = items[0];
+        const firstTitle = firstItem.querySelector('.file-name').textContent;
+        const firstImages = JSON.parse(firstItem.dataset.preview || '[]');
+        setPreview(type, firstTitle, firstImages, firstItem);
+      }
+    }
+
+    function bindVideoPreview(type) {
+      const popup = document.getElementById(`popup-${type}`);
+      if (!popup) return;
+
+      const items = popup.querySelectorAll('.file-item');
+      const frame = document.getElementById(`${type}-preview-frame`);
+      const titleEl = document.getElementById(`${type}-preview-title`);
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          const title = item.querySelector('.file-name').textContent;
+          const videos = JSON.parse(item.dataset.preview || '[]');
+
+          if (!videos.length || !frame) return;
+
+          frame.innerHTML = '';
+
+          const video = document.createElement('video');
+          video.src = videos[0];
+          video.autoplay = true;
+          video.loop = true;
+          video.muted = true;
+          video.controls = true;
+          video.playsInline = true;
+
+          video.style.width = '100%';
+          video.style.height = '100%';
+          video.style.objectFit = 'contain';
+
+          frame.appendChild(video);
+          if (titleEl) titleEl.textContent = title;
+
+          const all = popup.querySelectorAll('.file-item');
+          all.forEach(el => el.classList.remove('active-preview'));
+          item.classList.add('active-preview');
+        });
+      });
+
+      if (items.length) items[0].click();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      bindPreviewItems('cardnews');
+      bindPreviewItems('mockup');
+      bindVideoPreview('detail');
+      bindInstagramPreview('banner');
+    });
+    function bindInstagramPreview(type) {
+      const popup = document.getElementById(`popup-${type}`);
+      if (!popup) return;
+
+      const items = popup.querySelectorAll('.file-item');
+      const frame = document.getElementById(`${type}-preview-frame`);
+      const titleEl = document.getElementById(`${type}-preview-title`);
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          const title = item.querySelector('.file-name').textContent;
+          const embedHtml = item.dataset.embed || '';
+
+          if (!embedHtml || !frame) return;
+
+          frame.innerHTML = embedHtml;
+          if (titleEl) titleEl.textContent = title;
+
+          const all = popup.querySelectorAll('.file-item');
+          all.forEach(el => el.classList.remove('active-preview'));
+          item.classList.add('active-preview');
+
+          if (window.instgrm && window.instgrm.Embeds) {
+            window.instgrm.Embeds.process();
+          }
+        });
+      });
+
+      if (items.length) items[0].click();
+    }
+  </script>
+  <script async src="//www.instagram.com/embed.js"></script>
+</body>
+
+</html>
