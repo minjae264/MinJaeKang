@@ -47,7 +47,7 @@
 
     <div class="folder-item" data-folder="host" style="left: 950px; top: 360px;">
       <img src="./img/user.svg" class="folder-icon" alt="folder-icon">
-      <span class="folder-label">호스트</span>
+      <span class="folder-label">호스트 소개</span>
     </div>
 
     <div class="taskbar">
@@ -69,30 +69,64 @@
           <div class="dot dot-min"></div>
           <div class="dot dot-max"></div>
         </div>
-        <span class="popup-folder-name">host</span>
+        <span class="popup-folder-name">저를 소개합니다</span>
       </div>
 
-      <div class="popup-path">~/Portfolio/host/</div>
+      <div class="popup-path">~/Portfolio/Host/</div>
 
-      <div class="popup-body">
-        <div class="file-grid">
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🌐</div>
-            <div class="file-name">호스팅 페이지</div>
-            <div class="file-meta">HTML · 2026</div>
+      <div class="popup-body preview-layout">
+        <div class="file-list-panel">
+          <div class="file-grid file-grid-list">
+
+            <div class="file-item" data-preview='["./img/host1-1.png","./img/host1-2.png","./img/host1-3.jpg"]'>
+              <div class="insta-thumb">
+                <img src="./img/host-thumb1.png" alt="host-thumb">
+              </div>
+            </div>
+
+            <div class="file-item" data-preview='["./img/host1-1.png","./img/host1-2.png","./img/host1-3.jpg"]'>
+              <div class="insta-thumb">
+                <img src="./img/host-thumb2.jpg" alt="host-thumb">
+              </div>
+            </div>
+
+            <div class="file-item" data-preview='["./img/host1-1.png","./img/host1-2.png","./img/host1-3.jpg"]'>
+              <div class="insta-thumb">
+                <img src="./img/host-thumb3.jpg" alt="host-thumb">
+              </div>
+            </div>
+
+            <div class="file-item" data-preview='["./img/host1-1.png","./img/host1-2.png","./img/host1-3.jpg"]'>
+              <div class="insta-thumb">
+                <img src="./img/host-thumb4.jpg" alt="host-thumb">
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="preview-panel">
+          <div class="preview-header">
+            <span id="host-preview-count"></span>
           </div>
 
-          <div class="file-item">
-            <div class="file-thumb thumb-neutral">🖥️</div>
-            <div class="file-name">서버 구성</div>
-            <div class="file-meta">Config · 2026</div>
+          <div class="preview-stage">
+            <button class="preview-nav prev" type="button" onclick="changeSlide('host', -1)">‹</button>
+
+            <div class="preview-frame">
+              <img id="host-preview-image" src="" alt="host preview">
+            </div>
+
+            <button class="preview-nav next" type="button" onclick="changeSlide('host', 1)">›</button>
           </div>
+
+          <div class="preview-dots" id="host-preview-dots"></div>
         </div>
       </div>
 
       <div class="popup-statusbar">
-        <span class="statusbar-count">2개 항목</span>
-        <span class="statusbar-size">12 MB</span>
+        <span class="statusbar-count">이미지</span>
+        <span class="statusbar-size">슬라이드</span>
       </div>
     </div>
 
@@ -112,7 +146,6 @@
       <div class="popup-body preview-layout">
         <div class="file-list-panel">
           <div class="file-grid file-grid-list">
-
             <div class="file-item" data-preview='["./img/mockup1-1.jpg","./img/mockup1-2.jpg","./img/mockup1-3.jpg"]'>
               <div class="file-thumb thumb-neutral">🏠</div>
               <div class="file-name">브랜드 목업</div>
@@ -272,24 +305,19 @@
       <div class="popup-body preview-layout">
         <div class="file-list-panel">
           <div class="file-grid file-grid-list">
-            <div class="file-item" data-embed='&lt;blockquote class="instagram-media"
-  data-instgrm-permalink="https://www.instagram.com/p/DUVr21tEuhe/"
-  data-instgrm-version="14"&gt;&lt;/blockquote&gt;'>
+            <div class="file-item" data-embed='&lt;blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DUVr21tEuhe/" data-instgrm-version="14"&gt;&lt;/blockquote&gt;'>
               <div class="insta-thumb">
                 <img src="./img/post-thumb2.jpg" alt="post-thumb">
               </div>
             </div>
-            <div class="file-item" data-embed='&lt;blockquote class="instagram-media"
-  data-instgrm-permalink="https://www.instagram.com/p/DWLuZLQkkTQ/"
-  data-instgrm-version="14"&gt;&lt;/blockquote&gt;'>
 
+            <div class="file-item" data-embed='&lt;blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DWLuZLQkkTQ/" data-instgrm-version="14"&gt;&lt;/blockquote&gt;'>
               <div class="insta-thumb">
                 <img src="./img/post-thumb1.jpg" alt="post-thumb">
               </div>
             </div>
-            <div class="file-item" data-embed='&lt;blockquote class="instagram-media"
-  data-instgrm-permalink="https://www.instagram.com/reel/DDCJnwEJEif/"
-  data-instgrm-version="14"&gt;&lt;/blockquote&gt;'>
+
+            <div class="file-item" data-embed='&lt;blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DDCJnwEJEif/" data-instgrm-version="14"&gt;&lt;/blockquote&gt;'>
               <div class="insta-thumb">
                 <img src="./img/reel-thumb1-1.jpg" alt="reel-thumb">
               </div>
@@ -335,23 +363,19 @@
 
             <div class="file-item" data-preview='["./video/video2-1.mp4"]'>
               <div class="file-thumb thumb-neutral">🎬</div>
-              <div class="file-name">애니메이션1
-                <br><span class="ref">(사운드포함)</span>
-              </div>
+              <div class="file-name">애니메이션1<br><span class="ref">(사운드포함)</span></div>
               <div class="file-meta">&nbsp;Jitter · 2026</div>
             </div>
+
             <div class="file-item" data-preview='["./video/video2-2.mp4"]'>
               <div class="file-thumb thumb-neutral">🎬</div>
-              <div class="file-name">애니메이션2
-                <br><span class="ref">(사운드포함)</span>
-              </div>
+              <div class="file-name">애니메이션2<br><span class="ref">(사운드포함)</span></div>
               <div class="file-meta">&nbsp;Jitter · 2026</div>
             </div>
+
             <div class="file-item" data-preview='["./video/video2-3.mp4"]'>
               <div class="file-thumb thumb-neutral">🎬</div>
-              <div class="file-name">애니메이션3
-                <br><span class="ref">(사운드포함)</span>
-              </div>
+              <div class="file-name">애니메이션3<br><span class="ref">(사운드포함)</span></div>
               <div class="file-meta">&nbsp;Jitter · 2026</div>
             </div>
 
@@ -400,6 +424,12 @@
     setInterval(updateClock, 10000);
 
     const folderKeys = ['mockup', 'homepage', 'cardnews', 'banner', 'detail', 'host'];
+    const previewState = {
+      cardnews: { images: [], index: 0 },
+      mockup: { images: [], index: 0 },
+      host: { images: [], index: 0 }
+    };
+
     let currentOpen = null;
 
     function openFolder(name) {
@@ -513,25 +543,11 @@
       item.ondragstart = () => false;
     });
 
-    const previewState = {
-      cardnews: {
-        images: [],
-        index: 0
-      },
-      mockup: {
-        images: [],
-        index: 0
-      }
-    };
-
-    function setPreview(type, title, images, clickedItem) {
+    function setPreview(type, images, clickedItem) {
       if (!images || !images.length || !previewState[type]) return;
 
       previewState[type].images = images;
       previewState[type].index = 0;
-
-      const titleEl = document.getElementById(`${type}-preview-title`);
-      if (titleEl) titleEl.textContent = title;
 
       renderPreview(type);
 
@@ -552,17 +568,20 @@
       const countEl = document.getElementById(`${type}-preview-count`);
       const dotsEl = document.getElementById(`${type}-preview-dots`);
 
-      if (!imageEl || !countEl || !dotsEl) return;
+      if (!imageEl || !dotsEl) return;
 
       if (!state.images.length) {
         imageEl.src = '';
-        countEl.textContent = '0 / 0';
+        if (countEl) countEl.textContent = '0 / 0';
         dotsEl.innerHTML = '';
         return;
       }
 
       imageEl.src = state.images[state.index];
-      countEl.textContent = `${state.index + 1} / ${state.images.length}`;
+
+      if (countEl) {
+        countEl.textContent = `${state.index + 1} / ${state.images.length}`;
+      }
 
       dotsEl.innerHTML = '';
       state.images.forEach((_, i) => {
@@ -597,17 +616,15 @@
 
       items.forEach(item => {
         item.addEventListener('click', () => {
-          const title = item.querySelector('.file-name').textContent;
           const images = JSON.parse(item.dataset.preview || '[]');
-          setPreview(type, title, images, item);
+          if (!images.length) return;
+          setPreview(type, images, item);
         });
       });
 
       if (items.length) {
-        const firstItem = items[0];
-        const firstTitle = firstItem.querySelector('.file-name').textContent;
-        const firstImages = JSON.parse(firstItem.dataset.preview || '[]');
-        setPreview(type, firstTitle, firstImages, firstItem);
+        const firstImages = JSON.parse(items[0].dataset.preview || '[]');
+        setPreview(type, firstImages, items[0]);
       }
     }
 
@@ -617,13 +634,10 @@
 
       const items = popup.querySelectorAll('.file-item');
       const frame = document.getElementById(`${type}-preview-frame`);
-      const titleEl = document.getElementById(`${type}-preview-title`);
 
       items.forEach(item => {
         item.addEventListener('click', () => {
-          const title = item.querySelector('.file-name').textContent;
           const videos = JSON.parse(item.dataset.preview || '[]');
-
           if (!videos.length || !frame) return;
 
           frame.innerHTML = '';
@@ -635,13 +649,11 @@
           video.muted = true;
           video.controls = true;
           video.playsInline = true;
-
           video.style.width = '100%';
           video.style.height = '100%';
           video.style.objectFit = 'contain';
 
           frame.appendChild(video);
-          if (titleEl) titleEl.textContent = title;
 
           const all = popup.querySelectorAll('.file-item');
           all.forEach(el => el.classList.remove('active-preview'));
@@ -652,12 +664,6 @@
       if (items.length) items[0].click();
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      bindPreviewItems('cardnews');
-      bindPreviewItems('mockup');
-      bindVideoPreview('detail');
-      bindInstagramPreview('banner');
-    });
     function bindInstagramPreview(type) {
       const popup = document.getElementById(`popup-${type}`);
       if (!popup) return;
@@ -690,6 +696,13 @@
       if (items.length) items[0].click();
     }
 
+    window.addEventListener('DOMContentLoaded', () => {
+      bindPreviewItems('cardnews');
+      bindPreviewItems('mockup');
+      bindPreviewItems('host');
+      bindVideoPreview('detail');
+      bindInstagramPreview('banner');
+    });
   </script>
   <script async src="//www.instagram.com/embed.js"></script>
 </body>
