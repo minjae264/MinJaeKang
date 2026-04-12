@@ -958,24 +958,3 @@ body {
         padding-right: 16px;
     }
 }
-/* @media (max-width: 768px) {
-    .desktop {
-        gap: 16px 12px;
-        padding: 100px 16px 90px;
-    }
-
-    .folder-item {
-        padding: 8px;
-        gap: 8px;
-    }
-
-    .folder-icon {
-        width: 60px;
-        height: 60px;
-    }
-
-    .folder-label {
-        font-size: 12px;
-        line-height: 1.3;
-    }
-} */
