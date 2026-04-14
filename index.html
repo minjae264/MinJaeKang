@@ -215,20 +215,22 @@
             <div class="file-name">TANGLES_리빙소품 브랜드 디자인</div>
             <div class="file-meta">HTML/CSS · 2026</div>
           </a>
+
           <a href="https://brics0519-glitch.github.io/NorangTongdak_ThePremium/" target="_blank"
             class="file-item link-item">
             <div class="file-thumb thumb-image">
               <img src="./img/nt-thumb.png" alt="노랑통닭 썸네일">
             </div>
             <div class="file-name">노랑통닭_더블랙</div>
-            <div class="file-meta">Cluade/ChatGPT · 2026</div>
+            <div class="file-meta">Claude/ChatGPT · 2026</div>
           </a>
+
         </div>
       </div>
 
       <div class="popup-statusbar">
-        <span class="statusbar-count">5개 항목</span>
-        <span class="statusbar-size">128 MB</span>
+        <span class="statusbar-count">2개 항목</span>
+        <span class="statusbar-size">웹페이지</span>
       </div>
     </div>
 
@@ -305,8 +307,8 @@
       </div>
 
       <div class="popup-statusbar">
-        <span class="statusbar-count">7개 항목</span>
-        <span class="statusbar-size">210 MB</span>
+        <span class="statusbar-count">4개 항목</span>
+        <span class="statusbar-size">이미지</span>
       </div>
     </div>
 
@@ -357,7 +359,7 @@
       </div>
 
       <div class="popup-statusbar">
-        <span class="statusbar-count">2개 항목</span>
+        <span class="statusbar-count">3개 항목</span>
         <span class="statusbar-size">Instagram Embed</span>
       </div>
     </div>
@@ -387,13 +389,8 @@
               </div>
             </div>
 
-            <div class="file-item" data-embed='<iframe
-    src="https://www.youtube.com/embed/BvkfbwcW65w?autoplay=1&mute=1&playsinline=1&rel=0"
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin">
-  </iframe>'>
+            <div class="file-item"
+              data-embed='<iframe src="https://www.youtube.com/embed/BvkfbwcW65w?autoplay=1&mute=1&playsinline=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin"></iframe>'>
               <div class="file-thumb thumb-neutral">🎬</div>
               <div class="file-info">
                 <div class="file-name">AI애니메이션</div>
@@ -401,26 +398,10 @@
               </div>
             </div>
 
-            <div class="file-item" data-preview='["./video/video2-1.mp4"]'>
+            <div class="file-item" data-preview='["./video/video2-1.mp4","./video/video2-2.mp4","./video/video2-3.mp4"]'>
               <div class="file-thumb thumb-neutral">🎬</div>
               <div class="file-info">
-                <div class="file-name">모션1-1</div>
-                <div class="file-meta">Jitter · 2026</div>
-              </div>
-            </div>
-
-            <div class="file-item" data-preview='["./video/video2-2.mp4"]'>
-              <div class="file-thumb thumb-neutral">🎬</div>
-              <div class="file-info">
-                <div class="file-name">모션1-2</div>
-                <div class="file-meta">Jitter · 2026</div>
-              </div>
-            </div>
-
-            <div class="file-item" data-preview='["./video/video2-3.mp4"]'>
-              <div class="file-thumb thumb-neutral">🎬</div>
-              <div class="file-info">
-                <div class="file-name">모션1-3</div>
+                <div class="file-name">모션1</div>
                 <div class="file-meta">Jitter · 2026</div>
               </div>
             </div>
@@ -432,11 +413,13 @@
           <div class="preview-stage">
             <div class="preview-frame" id="detail-preview-frame"></div>
           </div>
+
+          <div class="preview-dots" id="detail-preview-dots"></div>
         </div>
       </div>
 
       <div class="popup-statusbar">
-        <span class="statusbar-count">2개 항목</span>
+        <span class="statusbar-count">3개 항목</span>
         <span class="statusbar-size">영상</span>
       </div>
     </div>
@@ -470,35 +453,80 @@
     setInterval(updateClock, 10000);
 
     const folderKeys = ['mockup', 'homepage', 'cardnews', 'banner', 'detail', 'host'];
+
     const previewState = {
       cardnews: { images: [], index: 0 },
       mockup: { images: [], index: 0 },
       host: { images: [], index: 0 }
     };
 
+    const detailVideoState = {
+      items: [],
+      index: 0,
+      autoTimer: null
+    };
+
     let currentOpen = null;
+
+    function stopDetailAutoSlide() {
+      if (detailVideoState.autoTimer) {
+        clearTimeout(detailVideoState.autoTimer);
+        detailVideoState.autoTimer = null;
+      }
+    }
+
+    function clearDetailFrame() {
+      stopDetailAutoSlide();
+
+      const frame = document.getElementById('detail-preview-frame');
+      if (!frame) return;
+
+      const oldVideo = frame.querySelector('video');
+      if (oldVideo) {
+        oldVideo.pause();
+        oldVideo.currentTime = 0;
+        oldVideo.src = '';
+        oldVideo.load();
+      }
+
+      const oldIframe = frame.querySelector('iframe');
+      if (oldIframe) {
+        oldIframe.src = '';
+      }
+
+      frame.innerHTML = '';
+    }
 
     function openFolder(name) {
       const overlay = document.getElementById('overlay');
+      const desktop = document.getElementById('desktop');
+
       folderKeys.forEach(k => {
         const el = document.getElementById('popup-' + k);
         if (el) el.style.display = (k === name) ? 'flex' : 'none';
       });
+
       overlay.classList.add('open');
+      desktop.classList.add('popup-open');
       currentOpen = name;
     }
 
     function closeFolder() {
       if (currentOpen === 'detail') {
-        stopDetailMedia();
+        clearDetailFrame();
+        detailVideoState.items = [];
+        detailVideoState.index = 0;
       }
 
       document.getElementById('overlay').classList.remove('open');
+      document.getElementById('desktop').classList.remove('popup-open');
       currentOpen = null;
     }
 
     function closeOnOverlay(e) {
-      if (e.target === document.getElementById('overlay')) closeFolder();
+      if (e.target === document.getElementById('overlay')) {
+        closeFolder();
+      }
     }
 
     document.addEventListener('keydown', e => {
@@ -525,6 +553,7 @@
       let offsetY = 0;
 
       item.addEventListener('mousedown', (e) => {
+        if (document.getElementById('overlay').classList.contains('open')) return;
         if (e.button !== 0) return;
 
         const rect = item.getBoundingClientRect();
@@ -678,40 +707,72 @@
       }
     }
 
+    function renderDetailVideo() {
+      const frame = document.getElementById('detail-preview-frame');
+      const dots = document.getElementById('detail-preview-dots');
+      if (!frame || !dots) return;
+
+      clearDetailFrame();
+      dots.innerHTML = '';
+
+      if (!detailVideoState.items.length) return;
+
+      const current = detailVideoState.items[detailVideoState.index];
+
+      const video = document.createElement('video');
+      video.src = current;
+      video.autoplay = true;
+      video.loop = false;
+      video.muted = true;
+      video.controls = true;
+      video.playsInline = true;
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.objectFit = 'contain';
+
+      video.addEventListener('ended', () => {
+        if (detailVideoState.items.length > 1) {
+          detailVideoState.index++;
+          if (detailVideoState.index >= detailVideoState.items.length) {
+            detailVideoState.index = 0;
+          }
+          renderDetailVideo();
+        }
+      });
+
+      frame.appendChild(video);
+
+      detailVideoState.items.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'preview-dot' + (i === detailVideoState.index ? ' active' : '');
+        dot.type = 'button';
+        dot.onclick = () => {
+          detailVideoState.index = i;
+          renderDetailVideo();
+        };
+        dots.appendChild(dot);
+      });
+    }
+
     function bindVideoPreview(type) {
       const popup = document.getElementById(`popup-${type}`);
       if (!popup) return;
 
       const items = popup.querySelectorAll('.file-item');
       const frame = document.getElementById(`${type}-preview-frame`);
-
-      function clearFrameMedia() {
-        const oldVideo = frame.querySelector('video');
-        if (oldVideo) {
-          oldVideo.pause();
-          oldVideo.currentTime = 0;
-          oldVideo.src = '';
-          oldVideo.load();
-        }
-
-        const oldIframe = frame.querySelector('iframe');
-        if (oldIframe) {
-          oldIframe.src = '';
-        }
-
-        frame.innerHTML = '';
-      }
+      const dots = document.getElementById(`${type}-preview-dots`);
 
       items.forEach(item => {
         item.addEventListener('click', () => {
           const embed = item.dataset.embed;
           const videos = JSON.parse(item.dataset.preview || '[]');
 
-          clearFrameMedia();
+          clearDetailFrame();
+          if (dots) dots.innerHTML = '';
 
           if (embed) {
             frame.innerHTML = embed;
-          } else if (videos.length) {
+          } else if (videos.length === 1) {
             const video = document.createElement('video');
             video.src = videos[0];
             video.autoplay = true;
@@ -724,6 +785,10 @@
             video.style.objectFit = 'contain';
 
             frame.appendChild(video);
+          } else if (videos.length > 1) {
+            detailVideoState.items = videos;
+            detailVideoState.index = 0;
+            renderDetailVideo();
           }
 
           const all = popup.querySelectorAll('.file-item');
@@ -774,48 +839,6 @@
       bindVideoPreview('detail');
       bindInstagramPreview('banner');
     });
-    function stopDetailMedia() {
-      const frame = document.getElementById('detail-preview-frame');
-      if (!frame) return;
-
-      const video = frame.querySelector('video');
-      if (video) {
-        video.pause();
-        video.currentTime = 0;
-        video.src = '';
-        video.load();
-      }
-
-      const iframe = frame.querySelector('iframe');
-      if (iframe) {
-        iframe.src = '';
-      }
-
-      frame.innerHTML = '';
-    }
-    function openFolder(name) {
-      const overlay = document.getElementById('overlay');
-      const desktop = document.getElementById('desktop');
-
-      folderKeys.forEach(k => {
-        const el = document.getElementById('popup-' + k);
-        if (el) el.style.display = (k === name) ? 'flex' : 'none';
-      });
-
-      overlay.classList.add('open');
-      desktop.classList.add('popup-open');
-      currentOpen = name;
-    }
-
-    function closeFolder() {
-      if (currentOpen === 'detail') {
-        stopDetailMedia();
-      }
-
-      document.getElementById('overlay').classList.remove('open');
-      document.getElementById('desktop').classList.remove('popup-open');
-      currentOpen = null;
-    }
   </script>
   <script async src="//www.instagram.com/embed.js"></script>
 </body>
