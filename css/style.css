@@ -306,7 +306,7 @@ body {
 
 /* 팝업 콘텐츠 */
 .popup-body {
-    padding: 28px;
+    padding: 14px;
     overflow-y: auto;
     flex: 1;
     background: rgba(255, 252, 248, 0.35);
@@ -349,8 +349,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    padding: 14px 10px;
+    gap: 18px;
+    padding: 14px 8px;
     border-radius: 16px;
     cursor: pointer;
     transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
@@ -378,7 +378,6 @@ body {
     align-items: center;
     justify-content: center;
     gap: 4px;
-
     font-size: 22px;
     /* 🔥 핵심: 줄이기 */
     white-space: nowrap;
@@ -535,7 +534,7 @@ body {
     justify-content: flex-start;
     align-items: center;
     text-align: left;
-    gap: 6px;
+    gap: 4px;
     padding: 10px;
     min-width: 0;
 }
@@ -784,6 +783,7 @@ body {
 .ref {
     color: rgba(110, 100, 85, 0.5);
 }
+
 #popup-host .preview-layout {
     display: grid;
     grid-template-columns: minmax(320px, 420px) 360px;
@@ -829,6 +829,7 @@ body {
     aspect-ratio: 3 / 4;
     min-height: 420px;
 }
+
 @media (max-width: 768px) {
     body {
         overflow-y: auto;
@@ -895,7 +896,9 @@ body {
         font-size: 13px;
     }
 }
+
 @media (max-width: 768px) {
+
     /* SNS, host도 모바일에서는 세로 배치 */
     #popup-banner .preview-layout,
     #popup-host .preview-layout {
@@ -957,4 +960,63 @@ body {
         padding-left: 16px;
         padding-right: 16px;
     }
+}
+
+#popup-detail {
+    width: min(860px, 92vw);
+    max-height: 80vh;
+}
+
+#popup-detail .preview-layout {
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+}
+
+#popup-detail .preview-panel {
+    padding: 10px;
+}
+
+#popup-detail .preview-frame {
+    width: 100%;
+    height: 420px;
+    /* ⭐ 핵심 */
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+#popup-detail .preview-frame iframe,
+#popup-detail .preview-frame video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+    border-radius: 12px;
+}
+
+.file-grid-list .file-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+    flex: 1;
+}
+
+.file-grid-list .file-info .file-name,
+.file-grid-list .file-info .file-meta {
+    text-align: left;
+}
+
+.file-grid-list .file-info .file-name {
+    line-height: 1.35;
+}
+
+.file-grid-list .file-info .file-meta {
+    line-height: 1.2;
+}
+
+.desktop.popup-open .folder-item {
+    pointer-events: none;
 }
