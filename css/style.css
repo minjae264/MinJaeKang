@@ -13,7 +13,7 @@ body {
     font-family: 'Noto Sans KR', sans-serif;
     min-height: 100vh;
     overflow: hidden;
-    background: #1a2744;
+    background: #ebf0f2;
     cursor: default;
     user-select: none;
 }
@@ -306,7 +306,7 @@ body {
 
 /* 팝업 콘텐츠 */
 .popup-body {
-    padding: 28px;
+    padding: 14px;
     overflow-y: auto;
     flex: 1;
     background: rgba(255, 252, 248, 0.35);
@@ -349,8 +349,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 14px 10px;
+    gap: 18px;
+    padding: 14px 8px;
     border-radius: 16px;
     cursor: pointer;
     transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
@@ -377,8 +377,53 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 30px;
+    gap: 4px;
+    font-size: 22px;
+    /* 🔥 핵심: 줄이기 */
+    white-space: nowrap;
+    /* 줄바꿈 방지 */
     flex-shrink: 0;
+}
+
+#popup-homepage .file-thumb {
+    width: 120px;
+    height: 120px;
+    border-radius: 16px;
+}
+
+#popup-homepage .thumb-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumb-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.thumb-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#popup-homepage .thumb-image img {
+    transition: 0.3s;
+}
+
+#popup-homepage .file-item:hover .thumb-image img {
+    transform: scale(1.05);
+}
+
+.link-item {
+    text-decoration: none;
+    color: inherit;
 }
 
 .file-name {
@@ -481,7 +526,7 @@ body {
 .file-grid-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .file-grid-list .file-item {
@@ -489,14 +534,14 @@ body {
     justify-content: flex-start;
     align-items: center;
     text-align: left;
-    gap: 8px;
-    padding: 12px;
+    gap: 4px;
+    padding: 10px;
     min-width: 0;
 }
 
 .file-grid-list .file-thumb {
-    width: 56px;
-    height: 56px;
+    width: 50px;
+    height: 50px;
     font-size: 24px;
     border-radius: 10px;
 }
@@ -652,4 +697,357 @@ body {
     border-radius: 14px;
     display: block;
     background: rgba(245, 242, 236, 0.35);
+}
+
+#popup-banner .preview-layout {
+    display: grid;
+    grid-template-columns: minmax(320px, 420px) 360px;
+    gap: 24px;
+    align-items: start;
+}
+
+#popup-banner .file-list-panel {
+    min-width: 0;
+}
+
+#popup-banner .file-grid-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+#popup-banner .file-item {
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#popup-banner .insta-thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#popup-banner .insta-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.25s ease;
+}
+
+#popup-banner .file-item:hover .insta-thumb img {
+    transform: scale(1.04);
+}
+
+#popup-banner .preview-panel {
+    width: 360px;
+    min-width: 360px;
+    max-width: 360px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    justify-self: center;
+}
+
+#popup-banner .preview-stage {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#popup-banner .banner-embed-frame {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    min-height: auto;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+#popup-banner .banner-embed-frame blockquote.instagram-media {
+    margin: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+.ref {
+    color: rgba(110, 100, 85, 0.5);
+}
+
+#popup-host .preview-layout {
+    display: grid;
+    grid-template-columns: minmax(320px, 420px) 360px;
+    gap: 24px;
+    align-items: start;
+}
+
+#popup-host .file-grid-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+#popup-host .file-item {
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+#popup-host .insta-thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#popup-host .insta-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#popup-host .preview-panel {
+    width: 360px;
+    min-width: 360px;
+    max-width: 360px;
+}
+
+#popup-host .preview-frame {
+    aspect-ratio: 3 / 4;
+    min-height: 420px;
+}
+
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto;
+    }
+
+    .desktop {
+        width: 100%;
+        min-height: 100vh;
+        height: auto;
+        overflow: visible;
+        padding: 110px 20px 90px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px 16px;
+        align-content: start;
+        justify-items: center;
+    }
+
+    .folder-item {
+        position: static !important;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        max-width: 140px;
+        padding: 8px;
+    }
+
+    .desktop-header {
+        top: 24px;
+        width: calc(100% - 40px);
+    }
+
+    .desktop-header h1 {
+        font-size: 15px;
+        letter-spacing: 2px;
+    }
+
+    .desktop-header p {
+        font-size: 12px;
+    }
+
+    .folder-icon {
+        width: 64px;
+        height: 64px;
+    }
+
+    .folder-label {
+        font-size: 12px;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.4;
+    }
+
+    .taskbar {
+        padding: 0 12px;
+    }
+
+    .taskbar-title {
+        font-size: 9px;
+        letter-spacing: 1px;
+    }
+
+    .taskbar-clock {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* SNS, host도 모바일에서는 세로 배치 */
+    #popup-banner .preview-layout,
+    #popup-host .preview-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* 오른쪽 프리뷰 폭 고정 해제 */
+    #popup-banner .preview-panel,
+    #popup-host .preview-panel {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        justify-self: stretch;
+    }
+
+    /* SNS 썸네일 그리드 모바일용 */
+    #popup-banner .file-grid-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    /* host 썸네일 그리드 모바일용 */
+    #popup-host .file-grid-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    /* 프리뷰를 아래에서 확실히 보이게 */
+    #popup-banner .preview-stage,
+    #popup-host .preview-stage {
+        width: 100%;
+    }
+
+    /* SNS 프리뷰는 가운데 정렬 */
+    #popup-banner .preview-frame.banner-embed-frame {
+        width: min(100%, 320px);
+        margin: 0 auto;
+    }
+
+    /* host 프리뷰도 너무 커지지 않게 */
+    #popup-host .preview-frame {
+        width: min(100%, 360px);
+        min-height: 0;
+        margin: 0 auto;
+    }
+
+    /* 모바일에서 헤더/본문 여백 살짝 줄이기 */
+    .popup-body {
+        padding: 18px;
+    }
+
+    .popup-titlebar {
+        padding: 12px 16px;
+    }
+
+    .popup-path,
+    .popup-statusbar {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+
+#popup-detail {
+    width: min(860px, 92vw);
+    max-height: 80vh;
+}
+
+#popup-detail .preview-layout {
+    grid-template-columns: 200px 1fr;
+    gap: 16px;
+}
+
+#popup-detail .preview-panel {
+    padding: 10px;
+}
+
+#popup-detail .preview-frame {
+    width: 100%;
+    height: 420px;
+    /* ⭐ 핵심 */
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+#popup-detail .preview-frame iframe,
+#popup-detail .preview-frame video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+    border-radius: 12px;
+}
+
+.file-grid-list .file-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+    flex: 1;
+}
+
+.file-grid-list .file-info .file-name,
+.file-grid-list .file-info .file-meta {
+    text-align: left;
+}
+
+.file-grid-list .file-info .file-name {
+    line-height: 1.35;
+}
+
+.file-grid-list .file-info .file-meta {
+    line-height: 1.2;
+}
+
+.desktop.popup-open .folder-item {
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    #popup-detail .preview-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    #popup-detail .preview-panel {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        justify-self: stretch;
+        padding: 10px;
+    }
+
+    #popup-detail .preview-stage {
+        width: 100%;
+    }
+
+    #popup-detail .preview-frame {
+        width: 100%;
+        height: auto;
+        min-height: 240px;
+        aspect-ratio: 16 / 9;
+        margin: 0 auto;
+    }
+
+    #popup-detail .file-list-panel {
+        min-width: 0;
+    }
 }
