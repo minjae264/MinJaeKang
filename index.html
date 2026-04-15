@@ -941,11 +941,20 @@ window.addEventListener('DOMContentLoaded', () => {
 });
   </script>
   <script async src="//www.instagram.com/embed.js"></script>
+  <div class="image-lightbox" id="imageLightbox">
+  <button class="lightbox-close" type="button" onclick="closeImageLightbox()">✕</button>
+
+  <button class="lightbox-nav lightbox-prev" type="button" onclick="changeLightboxSlide(-1)">‹</button>
+
+  <div class="lightbox-inner" onclick="closeImageLightbox()">
+    <img id="lightboxImage" src="" alt="expanded preview">
+  </div>
+
+  <button class="lightbox-nav lightbox-next" type="button" onclick="changeLightboxSlide(1)">›</button>
+
+  <div class="lightbox-dots" id="lightboxDots"></div>
+</div>
 </body>
 
 </html>
-  </script>
-  <script async src="//www.instagram.com/embed.js"></script>
-</body>
 
-</html>
