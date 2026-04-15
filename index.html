@@ -434,19 +434,21 @@
   <script>
     const desktop = document.getElementById('desktop');
 
-    for (let i = 0; i < 10; i++) {
-      const el = document.createElement('div');
-      el.className = 'sparkle';
+for (let i = 0; i < 36; i++) {
+  const el = document.createElement('div');
+  el.className = 'sparkle';
 
-      const size = Math.random() * 20 + 16;
-      el.style.setProperty('--size', size + 'px');
-      el.style.setProperty('--t', (Math.random() * 3 + 4) + 's');
-      el.style.left = Math.random() * 60 + 20 + '%';
-      el.style.top = Math.random() * 40 + 50 + '%';
-      el.style.animationDelay = Math.random() * 5 + 's';
+  const size = Math.random() * 6 + 4; // 눈 크기
+  el.style.setProperty('--size', size + 'px');
+  el.style.setProperty('--t', (Math.random() * 6 + 8) + 's'); // 천천히 떨어짐
+  el.style.setProperty('--drift', (Math.random() * 30 - 15) + 'px'); // 좌우 흔들림
 
-      desktop.appendChild(el);
-    }
+  el.style.left = Math.random() * 100 + '%';
+  el.style.top = (-Math.random() * 100) + 'px';
+  el.style.animationDelay = (Math.random() * 8) + 's';
+
+  desktop.appendChild(el);
+}
 
     function updateClock() {
       const now = new Date();
