@@ -252,9 +252,7 @@
         <div class="file-list-panel">
           <div class="file-grid file-grid-list">
 
-<div class="file-item"
-  data-preview='["./img/cardnews1-1.jpg"]'
-  data-link="https://minjae264.github.io/TANGLES/sec2_cup.html">
+<div class="file-item" data-preview='["./img/cardnews1-1.jpg"]'>
   <div class="file-thumb thumb-neutral">📑</div>
   <div class="file-info">
     <div class="file-name">상세페이지1</div>
@@ -262,16 +260,13 @@
   </div>
 </div>
 
-<div class="file-item"
-  data-preview='["./img/cardnews2-1.jpg"]'
-  data-link="https://minjae264.github.io/TANGLES/sec2_lotion.html">
+<div class="file-item" data-preview='["./img/cardnews2-1.jpg"]'>
   <div class="file-thumb thumb-neutral">📑</div>
   <div class="file-info">
     <div class="file-name">상세페이지2</div>
     <div class="file-meta">Photoshop · 2026</div>
   </div>
 </div>
-
             <div class="file-item" data-preview='["./img/cardnews3-1.jpg"]'>
               <div class="file-thumb thumb-neutral">💌</div>
               <div class="file-info">
@@ -432,16 +427,16 @@
   </div>
 
   <script>
-    const desktop = document.getElementById('desktop');
+const desktop = document.getElementById('desktop');
 
 for (let i = 0; i < 26; i++) {
   const el = document.createElement('div');
   el.className = 'sparkle';
 
-  const size = Math.random() * 8 + 4; // 눈 크기
+  const size = Math.random() * 8 + 4;
   el.style.setProperty('--size', size + 'px');
-  el.style.setProperty('--t', (Math.random() * 6 + 8) + 's'); // 천천히 떨어짐
-  el.style.setProperty('--drift', (Math.random() * 30 - 15) + 'px'); // 좌우 흔들림
+  el.style.setProperty('--t', (Math.random() * 6 + 8) + 's');
+  el.style.setProperty('--drift', (Math.random() * 30 - 15) + 'px');
 
   el.style.left = Math.random() * 100 + '%';
   el.style.top = (-Math.random() * 100) + 'px';
@@ -450,184 +445,270 @@ for (let i = 0; i < 26; i++) {
   desktop.appendChild(el);
 }
 
-    function updateClock() {
-      const now = new Date();
-      const h = String(now.getHours()).padStart(2, '0');
-      const m = String(now.getMinutes()).padStart(2, '0');
-      document.getElementById('clock').textContent = `${h}:${m}`;
-    }
-    updateClock();
-    setInterval(updateClock, 10000);
+function updateClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, '0');
+  const m = String(now.getMinutes()).padStart(2, '0');
+  document.getElementById('clock').textContent = `${h}:${m}`;
+}
+updateClock();
+setInterval(updateClock, 10000);
 
-    const folderKeys = ['mockup', 'homepage', 'cardnews', 'banner', 'detail', 'host'];
+const folderKeys = ['mockup', 'homepage', 'cardnews', 'banner', 'detail', 'host'];
 
-    const previewState = {
-      cardnews: { images: [], index: 0 },
-      mockup: { images: [], index: 0 },
-      host: { images: [], index: 0 }
+const previewState = {
+  cardnews: { images: [], index: 0 },
+  mockup: { images: [], index: 0 },
+  host: { images: [], index: 0 }
+};
+
+const detailVideoState = {
+  items: [],
+  index: 0,
+  autoTimer: null
+};
+
+const lightboxState = {
+  images: [],
+  index: 0
+};
+
+let currentOpen = null;
+
+function stopDetailAutoSlide() {
+  if (detailVideoState.autoTimer) {
+    clearTimeout(detailVideoState.autoTimer);
+    detailVideoState.autoTimer = null;
+  }
+}
+
+function clearDetailFrame() {
+  stopDetailAutoSlide();
+
+  const frame = document.getElementById('detail-preview-frame');
+  if (!frame) return;
+
+  const oldVideo = frame.querySelector('video');
+  if (oldVideo) {
+    oldVideo.pause();
+    oldVideo.currentTime = 0;
+    oldVideo.src = '';
+    oldVideo.load();
+  }
+
+  const oldIframe = frame.querySelector('iframe');
+  if (oldIframe) {
+    oldIframe.src = '';
+  }
+
+  frame.innerHTML = '';
+}
+
+function openFolder(name) {
+  const overlay = document.getElementById('overlay');
+  const desktop = document.getElementById('desktop');
+
+  folderKeys.forEach(k => {
+    const el = document.getElementById('popup-' + k);
+    if (el) el.style.display = (k === name) ? 'flex' : 'none';
+  });
+
+  overlay.classList.add('open');
+  desktop.classList.add('popup-open');
+  currentOpen = name;
+}
+
+function closeFolder() {
+  if (currentOpen === 'detail') {
+    clearDetailFrame();
+    detailVideoState.items = [];
+    detailVideoState.index = 0;
+  }
+
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('desktop').classList.remove('popup-open');
+  currentOpen = null;
+}
+
+function closeOnOverlay(e) {
+  if (e.target === document.getElementById('overlay')) {
+    closeFolder();
+  }
+}
+
+function renderLightbox() {
+  const img = document.getElementById('lightboxImage');
+  const dots = document.getElementById('lightboxDots');
+  if (!img || !dots) return;
+
+  if (!lightboxState.images.length) {
+    img.src = '';
+    dots.innerHTML = '';
+    return;
+  }
+
+  img.src = lightboxState.images[lightboxState.index];
+  dots.innerHTML = '';
+
+  lightboxState.images.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'lightbox-dot' + (i === lightboxState.index ? ' active' : '');
+    dot.type = 'button';
+    dot.onclick = (e) => {
+      e.stopPropagation();
+      lightboxState.index = i;
+      renderLightbox();
     };
+    dots.appendChild(dot);
+  });
+}
 
-    const detailVideoState = {
-      items: [],
-      index: 0,
-      autoTimer: null
-    };
+function openImageLightbox(images, startIndex = 0) {
+  const lightbox = document.getElementById('imageLightbox');
+  if (!lightbox || !images || !images.length) return;
 
-    let currentOpen = null;
+  lightboxState.images = images;
+  lightboxState.index = startIndex;
 
-    function stopDetailAutoSlide() {
-      if (detailVideoState.autoTimer) {
-        clearTimeout(detailVideoState.autoTimer);
-        detailVideoState.autoTimer = null;
+  renderLightbox();
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeImageLightbox() {
+  const lightbox = document.getElementById('imageLightbox');
+  const img = document.getElementById('lightboxImage');
+  const dots = document.getElementById('lightboxDots');
+  if (!lightbox || !img || !dots) return;
+
+  lightbox.classList.remove('open');
+  img.src = '';
+  dots.innerHTML = '';
+  lightboxState.images = [];
+  lightboxState.index = 0;
+  document.body.style.overflow = '';
+}
+
+function changeLightboxSlide(direction) {
+  if (!lightboxState.images.length) return;
+
+  lightboxState.index += direction;
+
+  if (lightboxState.index < 0) {
+    lightboxState.index = lightboxState.images.length - 1;
+  }
+  if (lightboxState.index >= lightboxState.images.length) {
+    lightboxState.index = 0;
+  }
+
+  renderLightbox();
+}
+
+document.addEventListener('keydown', e => {
+  const lightbox = document.getElementById('imageLightbox');
+
+  if (e.key === 'Escape') {
+    if (lightbox && lightbox.classList.contains('open')) {
+      closeImageLightbox();
+    } else {
+      closeFolder();
+    }
+  }
+
+  if (lightbox && lightbox.classList.contains('open')) {
+    if (e.key === 'ArrowLeft') changeLightboxSlide(-1);
+    if (e.key === 'ArrowRight') changeLightboxSlide(1);
+  }
+});
+
+const folderItems = document.querySelectorAll('.folder-item');
+
+folderItems.forEach((item) => {
+  const folderName = item.dataset.folder;
+  const savedPos = localStorage.getItem('folder-pos-' + folderName);
+
+  if (savedPos) {
+    const pos = JSON.parse(savedPos);
+    item.style.left = pos.left + 'px';
+    item.style.top = pos.top + 'px';
+  }
+
+  let isDragging = false;
+  let moved = false;
+  let startX = 0;
+  let startY = 0;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  item.addEventListener('mousedown', (e) => {
+    if (document.getElementById('overlay').classList.contains('open')) return;
+    if (e.button !== 0) return;
+
+    const rect = item.getBoundingClientRect();
+    const desktopRect = desktop.getBoundingClientRect();
+
+    startX = e.clientX;
+    startY = e.clientY;
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    moved = false;
+    isDragging = true;
+
+    item.classList.add('dragging');
+
+    function onMouseMove(e) {
+      if (!isDragging) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+        moved = true;
       }
+
+      if (!moved) return;
+
+      let left = e.clientX - desktopRect.left - offsetX;
+      let top = e.clientY - desktopRect.top - offsetY;
+
+      const maxLeft = desktop.clientWidth - item.offsetWidth;
+      const maxTop = desktop.clientHeight - item.offsetHeight - 48;
+
+      left = Math.max(0, Math.min(left, maxLeft));
+      top = Math.max(0, Math.min(top, maxTop));
+
+      item.style.left = left + 'px';
+      item.style.top = top + 'px';
     }
 
-    function clearDetailFrame() {
-      stopDetailAutoSlide();
+    function onMouseUp() {
+      if (!isDragging) return;
 
-      const frame = document.getElementById('detail-preview-frame');
-      if (!frame) return;
+      isDragging = false;
+      item.classList.remove('dragging');
 
-      const oldVideo = frame.querySelector('video');
-      if (oldVideo) {
-        oldVideo.pause();
-        oldVideo.currentTime = 0;
-        oldVideo.src = '';
-        oldVideo.load();
+      if (moved) {
+        localStorage.setItem(
+          'folder-pos-' + folderName,
+          JSON.stringify({
+            left: parseInt(item.style.left, 10),
+            top: parseInt(item.style.top, 10)
+          })
+        );
+      } else {
+        openFolder(folderName);
       }
 
-      const oldIframe = frame.querySelector('iframe');
-      if (oldIframe) {
-        oldIframe.src = '';
-      }
-
-      frame.innerHTML = '';
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
     }
 
-    function openFolder(name) {
-      const overlay = document.getElementById('overlay');
-      const desktop = document.getElementById('desktop');
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
 
-      folderKeys.forEach(k => {
-        const el = document.getElementById('popup-' + k);
-        if (el) el.style.display = (k === name) ? 'flex' : 'none';
-      });
-
-      overlay.classList.add('open');
-      desktop.classList.add('popup-open');
-      currentOpen = name;
-    }
-
-    function closeFolder() {
-      if (currentOpen === 'detail') {
-        clearDetailFrame();
-        detailVideoState.items = [];
-        detailVideoState.index = 0;
-      }
-
-      document.getElementById('overlay').classList.remove('open');
-      document.getElementById('desktop').classList.remove('popup-open');
-      currentOpen = null;
-    }
-
-    function closeOnOverlay(e) {
-      if (e.target === document.getElementById('overlay')) {
-        closeFolder();
-      }
-    }
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeFolder();
-    });
-
-    const folderItems = document.querySelectorAll('.folder-item');
-
-    folderItems.forEach((item) => {
-      const folderName = item.dataset.folder;
-      const savedPos = localStorage.getItem('folder-pos-' + folderName);
-
-      if (savedPos) {
-        const pos = JSON.parse(savedPos);
-        item.style.left = pos.left + 'px';
-        item.style.top = pos.top + 'px';
-      }
-
-      let isDragging = false;
-      let moved = false;
-      let startX = 0;
-      let startY = 0;
-      let offsetX = 0;
-      let offsetY = 0;
-
-      item.addEventListener('mousedown', (e) => {
-        if (document.getElementById('overlay').classList.contains('open')) return;
-        if (e.button !== 0) return;
-
-        const rect = item.getBoundingClientRect();
-        const desktopRect = desktop.getBoundingClientRect();
-
-        startX = e.clientX;
-        startY = e.clientY;
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-        moved = false;
-        isDragging = true;
-
-        item.classList.add('dragging');
-
-        function onMouseMove(e) {
-          if (!isDragging) return;
-
-          const dx = e.clientX - startX;
-          const dy = e.clientY - startY;
-
-          if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
-            moved = true;
-          }
-
-          if (!moved) return;
-
-          let left = e.clientX - desktopRect.left - offsetX;
-          let top = e.clientY - desktopRect.top - offsetY;
-
-          const maxLeft = desktop.clientWidth - item.offsetWidth;
-          const maxTop = desktop.clientHeight - item.offsetHeight - 48;
-
-          left = Math.max(0, Math.min(left, maxLeft));
-          top = Math.max(0, Math.min(top, maxTop));
-
-          item.style.left = left + 'px';
-          item.style.top = top + 'px';
-        }
-
-        function onMouseUp() {
-          if (!isDragging) return;
-
-          isDragging = false;
-          item.classList.remove('dragging');
-
-          if (moved) {
-            localStorage.setItem(
-              'folder-pos-' + folderName,
-              JSON.stringify({
-                left: parseInt(item.style.left, 10),
-                top: parseInt(item.style.top, 10)
-              })
-            );
-          } else {
-            openFolder(folderName);
-          }
-
-          document.removeEventListener('mousemove', onMouseMove);
-          document.removeEventListener('mouseup', onMouseUp);
-        }
-
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-      });
-
-      item.ondragstart = () => false;
-    });
+  item.ondragstart = () => false;
+});
 
 function setPreview(type, images, clickedItem) {
   if (!images || !images.length || !previewState[type]) return;
@@ -643,223 +724,226 @@ function setPreview(type, images, clickedItem) {
 
   if (clickedItem) {
     clickedItem.classList.add('active-preview');
+  }
 
-    // 🔥 여기 추가
-    const link = clickedItem.dataset.link;
-    const previewImage = document.getElementById(`${type}-preview-image`);
+  const previewImage = document.getElementById(`${type}-preview-image`);
 
-    if (link && previewImage) {
-      previewImage.style.cursor = 'pointer';
-      previewImage.onclick = () => {
-        window.open(link, '_blank');
-      };
-    } else if (previewImage) {
-      previewImage.style.cursor = 'default';
-      previewImage.onclick = null;
-    }
+  if (previewImage && type === 'cardnews') {
+    previewImage.style.cursor = 'zoom-in';
+    previewImage.onclick = () => {
+      openImageLightbox(previewState[type].images, previewState[type].index);
+    };
+  } else if (previewImage) {
+    previewImage.style.cursor = 'default';
+    previewImage.onclick = null;
   }
 }
 
-    function renderPreview(type) {
-      const state = previewState[type];
-      if (!state) return;
+function renderPreview(type) {
+  const state = previewState[type];
+  if (!state) return;
 
-      const imageEl = document.getElementById(`${type}-preview-image`);
-      const countEl = document.getElementById(`${type}-preview-count`);
-      const dotsEl = document.getElementById(`${type}-preview-dots`);
+  const imageEl = document.getElementById(`${type}-preview-image`);
+  const countEl = document.getElementById(`${type}-preview-count`);
+  const dotsEl = document.getElementById(`${type}-preview-dots`);
 
-      if (!imageEl || !dotsEl) return;
+  if (!imageEl || !dotsEl) return;
 
-      if (!state.images.length) {
-        imageEl.src = '';
-        if (countEl) countEl.textContent = '0 / 0';
-        dotsEl.innerHTML = '';
-        return;
-      }
+  if (!state.images.length) {
+    imageEl.src = '';
+    if (countEl) countEl.textContent = '0 / 0';
+    dotsEl.innerHTML = '';
+    return;
+  }
 
-      imageEl.src = state.images[state.index];
+  imageEl.src = state.images[state.index];
 
-      if (countEl) {
-        countEl.textContent = `${state.index + 1} / ${state.images.length}`;
-      }
+  if (countEl) {
+    countEl.textContent = `${state.index + 1} / ${state.images.length}`;
+  }
 
-      dotsEl.innerHTML = '';
-      state.images.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'preview-dot' + (i === state.index ? ' active' : '');
-        dot.type = 'button';
-        dot.onclick = () => {
-          state.index = i;
-          renderPreview(type);
-        };
-        dotsEl.appendChild(dot);
-      });
-    }
-
-    function changeSlide(type, direction) {
-      const state = previewState[type];
-      if (!state || !state.images.length) return;
-
-      state.index += direction;
-
-      if (state.index < 0) state.index = state.images.length - 1;
-      if (state.index >= state.images.length) state.index = 0;
-
+  dotsEl.innerHTML = '';
+  state.images.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'preview-dot' + (i === state.index ? ' active' : '');
+    dot.type = 'button';
+    dot.onclick = () => {
+      state.index = i;
       renderPreview(type);
-    }
+    };
+    dotsEl.appendChild(dot);
+  });
+}
 
-    function bindPreviewItems(type) {
-      const popup = document.getElementById(`popup-${type}`);
-      if (!popup || !previewState[type]) return;
+function changeSlide(type, direction) {
+  const state = previewState[type];
+  if (!state || !state.images.length) return;
 
-      const items = popup.querySelectorAll('.file-item');
+  state.index += direction;
 
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          const images = JSON.parse(item.dataset.preview || '[]');
-          if (!images.length) return;
-          setPreview(type, images, item);
-        });
-      });
+  if (state.index < 0) state.index = state.images.length - 1;
+  if (state.index >= state.images.length) state.index = 0;
 
-      if (items.length) {
-        const firstImages = JSON.parse(items[0].dataset.preview || '[]');
-        setPreview(type, firstImages, items[0]);
+  renderPreview(type);
+}
+
+function bindPreviewItems(type) {
+  const popup = document.getElementById(`popup-${type}`);
+  if (!popup || !previewState[type]) return;
+
+  const items = popup.querySelectorAll('.file-item');
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const images = JSON.parse(item.dataset.preview || '[]');
+      if (!images.length) return;
+      setPreview(type, images, item);
+    });
+  });
+
+  if (items.length) {
+    const firstImages = JSON.parse(items[0].dataset.preview || '[]');
+    setPreview(type, firstImages, items[0]);
+  }
+}
+
+function renderDetailVideo() {
+  const frame = document.getElementById('detail-preview-frame');
+  const dots = document.getElementById('detail-preview-dots');
+  if (!frame || !dots) return;
+
+  clearDetailFrame();
+  dots.innerHTML = '';
+
+  if (!detailVideoState.items.length) return;
+
+  const current = detailVideoState.items[detailVideoState.index];
+
+  const video = document.createElement('video');
+  video.src = current;
+  video.autoplay = true;
+  video.loop = false;
+  video.muted = true;
+  video.controls = true;
+  video.playsInline = true;
+  video.style.width = '100%';
+  video.style.height = '100%';
+  video.style.objectFit = 'contain';
+
+  video.addEventListener('ended', () => {
+    if (detailVideoState.items.length > 1) {
+      detailVideoState.index++;
+      if (detailVideoState.index >= detailVideoState.items.length) {
+        detailVideoState.index = 0;
       }
+      renderDetailVideo();
     }
+  });
 
-    function renderDetailVideo() {
-      const frame = document.getElementById('detail-preview-frame');
-      const dots = document.getElementById('detail-preview-dots');
-      if (!frame || !dots) return;
+  frame.appendChild(video);
+
+  detailVideoState.items.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'preview-dot' + (i === detailVideoState.index ? ' active' : '');
+    dot.type = 'button';
+    dot.onclick = () => {
+      detailVideoState.index = i;
+      renderDetailVideo();
+    };
+    dots.appendChild(dot);
+  });
+}
+
+function bindVideoPreview(type) {
+  const popup = document.getElementById(`popup-${type}`);
+  if (!popup) return;
+
+  const items = popup.querySelectorAll('.file-item');
+  const frame = document.getElementById(`${type}-preview-frame`);
+  const dots = document.getElementById(`${type}-preview-dots`);
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const embed = item.dataset.embed;
+      const videos = JSON.parse(item.dataset.preview || '[]');
 
       clearDetailFrame();
-      dots.innerHTML = '';
+      if (dots) dots.innerHTML = '';
 
-      if (!detailVideoState.items.length) return;
+      if (embed) {
+        frame.innerHTML = embed;
+      } else if (videos.length === 1) {
+        const video = document.createElement('video');
+        video.src = videos[0];
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+        video.controls = true;
+        video.playsInline = true;
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'contain';
 
-      const current = detailVideoState.items[detailVideoState.index];
+        frame.appendChild(video);
+      } else if (videos.length > 1) {
+        detailVideoState.items = videos;
+        detailVideoState.index = 0;
+        renderDetailVideo();
+      }
 
-      const video = document.createElement('video');
-      video.src = current;
-      video.autoplay = true;
-      video.loop = false;
-      video.muted = true;
-      video.controls = true;
-      video.playsInline = true;
-      video.style.width = '100%';
-      video.style.height = '100%';
-      video.style.objectFit = 'contain';
-
-      video.addEventListener('ended', () => {
-        if (detailVideoState.items.length > 1) {
-          detailVideoState.index++;
-          if (detailVideoState.index >= detailVideoState.items.length) {
-            detailVideoState.index = 0;
-          }
-          renderDetailVideo();
-        }
-      });
-
-      frame.appendChild(video);
-
-      detailVideoState.items.forEach((_, i) => {
-        const dot = document.createElement('button');
-        dot.className = 'preview-dot' + (i === detailVideoState.index ? ' active' : '');
-        dot.type = 'button';
-        dot.onclick = () => {
-          detailVideoState.index = i;
-          renderDetailVideo();
-        };
-        dots.appendChild(dot);
-      });
-    }
-
-    function bindVideoPreview(type) {
-      const popup = document.getElementById(`popup-${type}`);
-      if (!popup) return;
-
-      const items = popup.querySelectorAll('.file-item');
-      const frame = document.getElementById(`${type}-preview-frame`);
-      const dots = document.getElementById(`${type}-preview-dots`);
-
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          const embed = item.dataset.embed;
-          const videos = JSON.parse(item.dataset.preview || '[]');
-
-          clearDetailFrame();
-          if (dots) dots.innerHTML = '';
-
-          if (embed) {
-            frame.innerHTML = embed;
-          } else if (videos.length === 1) {
-            const video = document.createElement('video');
-            video.src = videos[0];
-            video.autoplay = true;
-            video.loop = true;
-            video.muted = true;
-            video.controls = true;
-            video.playsInline = true;
-            video.style.width = '100%';
-            video.style.height = '100%';
-            video.style.objectFit = 'contain';
-
-            frame.appendChild(video);
-          } else if (videos.length > 1) {
-            detailVideoState.items = videos;
-            detailVideoState.index = 0;
-            renderDetailVideo();
-          }
-
-          const all = popup.querySelectorAll('.file-item');
-          all.forEach(el => el.classList.remove('active-preview'));
-          item.classList.add('active-preview');
-        });
-      });
-
-      if (items.length) items[0].click();
-    }
-
-    function bindInstagramPreview(type) {
-      const popup = document.getElementById(`popup-${type}`);
-      if (!popup) return;
-
-      const items = popup.querySelectorAll('.file-item');
-      const frame = document.getElementById(`${type}-preview-frame`);
-
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          const embedHtml = item.dataset.embed || '';
-          if (!embedHtml || !frame) return;
-
-          frame.innerHTML = embedHtml;
-
-          const all = popup.querySelectorAll('.file-item');
-          all.forEach(el => el.classList.remove('active-preview'));
-          item.classList.add('active-preview');
-
-          const runProcess = () => {
-            if (window.instgrm && window.instgrm.Embeds) {
-              window.instgrm.Embeds.process();
-            }
-          };
-
-          runProcess();
-          setTimeout(runProcess, 300);
-        });
-      });
-
-      if (items.length) items[0].click();
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      bindPreviewItems('cardnews');
-      bindPreviewItems('mockup');
-      bindPreviewItems('host');
-      bindVideoPreview('detail');
-      bindInstagramPreview('banner');
+      const all = popup.querySelectorAll('.file-item');
+      all.forEach(el => el.classList.remove('active-preview'));
+      item.classList.add('active-preview');
     });
+  });
+
+  if (items.length) items[0].click();
+}
+
+function bindInstagramPreview(type) {
+  const popup = document.getElementById(`popup-${type}`);
+  if (!popup) return;
+
+  const items = popup.querySelectorAll('.file-item');
+  const frame = document.getElementById(`${type}-preview-frame`);
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const embedHtml = item.dataset.embed || '';
+      if (!embedHtml || !frame) return;
+
+      frame.innerHTML = embedHtml;
+
+      const all = popup.querySelectorAll('.file-item');
+      all.forEach(el => el.classList.remove('active-preview'));
+      item.classList.add('active-preview');
+
+      const runProcess = () => {
+        if (window.instgrm && window.instgrm.Embeds) {
+          window.instgrm.Embeds.process();
+        }
+      };
+
+      runProcess();
+      setTimeout(runProcess, 300);
+    });
+  });
+
+  if (items.length) items[0].click();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  bindPreviewItems('cardnews');
+  bindPreviewItems('mockup');
+  bindPreviewItems('host');
+  bindVideoPreview('detail');
+  bindInstagramPreview('banner');
+});
+  </script>
+  <script async src="//www.instagram.com/embed.js"></script>
+</body>
+
+</html>
   </script>
   <script async src="//www.instagram.com/embed.js"></script>
 </body>
