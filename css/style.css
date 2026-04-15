@@ -54,13 +54,18 @@ body {
         opacity: 0.9;
     }
 
-    50% {
-        transform: translate3d(var(--drift, 12px), 45vh, 0);
+    45% {
+        transform: translate3d(var(--drift, 12px), 28vh, 0);
         opacity: 0.8;
     }
 
+    70% {
+        transform: translate3d(calc(var(--drift, 12px) * 0.5), 42vh, 0);
+        opacity: 0.35;
+    }
+
     100% {
-        transform: translate3d(calc(var(--drift, 12px) * -1), 110vh, 0);
+        transform: translate3d(calc(var(--drift, 12px) * -0.5), 52vh, 0);
         opacity: 0;
     }
 }
