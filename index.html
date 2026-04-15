@@ -251,21 +251,25 @@
         <div class="file-list-panel">
           <div class="file-grid file-grid-list">
 
-            <div class="file-item" data-preview='["./img/cardnews1-1.jpg"]'>
-              <div class="file-thumb thumb-neutral">📑</div>
-              <div class="file-info">
-                <div class="file-name">상세페이지1</div>
-                <div class="file-meta">Photoshop · 2026</div>
-              </div>
-            </div>
+<div class="file-item"
+  data-preview='["./img/cardnews1-1.jpg"]'
+  data-link="https://minjae264.github.io/TANGLES/sec2_cup.html">
+  <div class="file-thumb thumb-neutral">📑</div>
+  <div class="file-info">
+    <div class="file-name">상세페이지1</div>
+    <div class="file-meta">Photoshop · 2026</div>
+  </div>
+</div>
 
-            <div class="file-item" data-preview='["./img/cardnews2-1.jpg"]'>
-              <div class="file-thumb thumb-neutral">📑</div>
-              <div class="file-info">
-                <div class="file-name">상세페이지2</div>
-                <div class="file-meta">Photoshop · 2026</div>
-              </div>
-            </div>
+<div class="file-item"
+  data-preview='["./img/cardnews2-1.jpg"]'
+  data-link="https://minjae264.github.io/TANGLES/sec2_lotion.html">
+  <div class="file-thumb thumb-neutral">📑</div>
+  <div class="file-info">
+    <div class="file-name">상세페이지2</div>
+    <div class="file-meta">Photoshop · 2026</div>
+  </div>
+</div>
 
             <div class="file-item" data-preview='["./img/cardnews3-1.jpg"]'>
               <div class="file-thumb thumb-neutral">💌</div>
@@ -622,22 +626,36 @@
       item.ondragstart = () => false;
     });
 
-    function setPreview(type, images, clickedItem) {
-      if (!images || !images.length || !previewState[type]) return;
+function setPreview(type, images, clickedItem) {
+  if (!images || !images.length || !previewState[type]) return;
 
-      previewState[type].images = images;
-      previewState[type].index = 0;
+  previewState[type].images = images;
+  previewState[type].index = 0;
 
-      renderPreview(type);
+  renderPreview(type);
 
-      const container = document.getElementById(`popup-${type}`);
-      const items = container.querySelectorAll('.file-item');
-      items.forEach(item => item.classList.remove('active-preview'));
+  const container = document.getElementById(`popup-${type}`);
+  const items = container.querySelectorAll('.file-item');
+  items.forEach(item => item.classList.remove('active-preview'));
 
-      if (clickedItem) {
-        clickedItem.classList.add('active-preview');
-      }
+  if (clickedItem) {
+    clickedItem.classList.add('active-preview');
+
+    // 🔥 여기 추가
+    const link = clickedItem.dataset.link;
+    const previewImage = document.getElementById(`${type}-preview-image`);
+
+    if (link && previewImage) {
+      previewImage.style.cursor = 'pointer';
+      previewImage.onclick = () => {
+        window.open(link, '_blank');
+      };
+    } else if (previewImage) {
+      previewImage.style.cursor = 'default';
+      previewImage.onclick = null;
     }
+  }
+}
 
     function renderPreview(type) {
       const state = previewState[type];
