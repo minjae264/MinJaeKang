@@ -940,13 +940,12 @@ window.addEventListener('DOMContentLoaded', () => {
   bindInstagramPreview('banner');
 });
   </script>
-  <script async src="//www.instagram.com/embed.js"></script>
   <div class="image-lightbox" id="imageLightbox">
   <button class="lightbox-close" type="button" onclick="closeImageLightbox()">✕</button>
 
   <button class="lightbox-nav lightbox-prev" type="button" onclick="changeLightboxSlide(-1)">‹</button>
 
-  <div class="lightbox-inner" onclick="closeImageLightbox()">
+  <div class="lightbox-inner">
     <img id="lightboxImage" src="" alt="expanded preview">
   </div>
 
@@ -954,6 +953,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   <div class="lightbox-dots" id="lightboxDots"></div>
 </div>
+   <script async src="//www.instagram.com/embed.js"></script>
 </body>
 
 </html>
